@@ -27,7 +27,7 @@ export function UserRemoveModal({ user, pending, onClose, onConfirm }: Props) {
     if (!user) return;
     setChoice(null);
     setConfirmName("");
-  }, [user?.id]);
+  }, [user]);
 
   useEffect(() => {
     if (!user) return;

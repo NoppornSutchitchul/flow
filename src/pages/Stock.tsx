@@ -1712,7 +1712,7 @@ export function StockPage({ embedded = false }: StockPageProps = {}) {
   );
   const deptPickerGroups = useMemo(
     () => buildCatalogDepartmentPickerGroups(departments, t("stock.department")),
-    [departments, t, i18n.language],
+    [departments, t],
   );
   const defaultCatalogDept =
     deptFilterCodes[0] ?? ("housekeeping" as Department);

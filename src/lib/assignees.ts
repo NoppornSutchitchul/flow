@@ -26,7 +26,7 @@ export function assignableUsers(dept: AssignableDept, list: User[]) {
   });
 }
 
-/** Keep current assignee visible in reassign picker even if off-shift or legacy data. */
+/** Keep current assignee visible in reassign picker even when not in the active pool. */
 export function withAssigneeInPool(pool: User[], assignee: User | null | undefined): User[] {
   if (!assignee?.id) return pool;
   if (pool.some((u) => u.id === assignee.id)) return pool;

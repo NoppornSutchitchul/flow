@@ -222,7 +222,7 @@ export function UsersPage({ embedded = false }: UsersPageProps = {}) {
         status.includes(q)
       );
     });
-  }, [data, search, deptFilter, statusFilter, t, departmentLabel, jobTitleDepts]);
+  }, [data, search, deptFilter, statusFilter, t, departmentLabel]);
 
   const tableRows = useMemo(() => {
     const rows = [...filteredRows];

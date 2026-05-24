@@ -19,6 +19,7 @@ export function useClientPagination<T>(
 ) {
   const [page, setPage] = useState(Math.max(1, initialPage));
   const [pageSize, setPageSize] = useState(initialPageSize);
+  const resetKey = resetDeps.map((dep) => String(dep)).join("\u001f");
 
   useEffect(() => {
     setPage(Math.max(1, initialPage));
@@ -32,7 +33,7 @@ export function useClientPagination<T>(
 
   useEffect(() => {
     setPage(1);
-  }, [pageSize, ...resetDeps]);
+  }, [pageSize, resetKey]);
 
   useEffect(() => {
     if (page !== currentPage) setPage(currentPage);

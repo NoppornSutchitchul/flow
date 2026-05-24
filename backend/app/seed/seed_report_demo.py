@@ -21,7 +21,6 @@ from ..models import (
     Product,
     Request,
     RequestItem,
-    StaffOvertimeLog,
     StockAdjustment,
     TimelineEvent,
     User,
@@ -33,7 +32,6 @@ from ..services import (
 )
 
 SEED_MARKER_KEY = "flow_report_demo_seed_v6"
-OT_SEED_MARKER_KEY = "flow_ot_demo_seed_v2"
 _DEMO_PERIOD_START = datetime(2025, 1, 1)
 RNG = random.Random(20250101)
 
@@ -71,26 +69,6 @@ _MONTH_DEMAND: dict[int, float] = {
 
 _BASE_REQUESTS_PER_DAY = 148
 _COMMIT_EVERY_DAYS = 14
-
-# Staff tap +1 hr OT — seeded across the full demo period (heavier Jan–May).
-OT_RNG = random.Random(20250301)
-_OT_ROLES = ("housekeeper", "hk_supervisor", "maintenance", "bellboy", "frontdesk")
-# Per-role multiplier on month demand (housekeeping / bell busiest).
-_OT_ROLE_FACTOR: dict[str, float] = {
-    "housekeeper": 1.0,
-    "hk_supervisor": 0.55,
-    "maintenance": 0.48,
-    "bellboy": 0.92,
-    "frontdesk": 0.72,
-}
-_OT_SHIFT_END: dict[str, str] = {
-    "housekeeper": "16:00",
-    "hk_supervisor": "17:00",
-    "maintenance": "17:00",
-    "bellboy": "18:00",
-    "frontdesk": "17:00",
-}
-
 
 def _utc_now() -> datetime:
     return datetime.utcnow()
@@ -362,7 +340,6 @@ def reset_report_operational_data(s: Session) -> dict[str, int]:
         "deleted_requests": s.exec(select(func.count(Request.id))).one() or 0,
         "deleted_stock_adjustments": s.exec(select(func.count(StockAdjustment.id))).one() or 0,
         "deleted_activity_logs": s.exec(select(func.count(ActivityLog.id))).one() or 0,
-        "deleted_overtime_logs": s.exec(select(func.count(StaffOvertimeLog.id))).one() or 0,
     }
     s.exec(delete(Note))
     s.exec(delete(TimelineEvent))
@@ -370,7 +347,6 @@ def reset_report_operational_data(s: Session) -> dict[str, int]:
     s.exec(delete(Request))
     s.exec(delete(StockAdjustment))
     s.exec(delete(ActivityLog))
-    s.exec(delete(StaffOvertimeLog))
     for key in (
         SEED_MARKER_KEY,
         "flow_report_ytd_seed_v4",
@@ -383,137 +359,6 @@ def reset_report_operational_data(s: Session) -> dict[str, int]:
     s.commit()
     sync_product_catalog()
     return counts
-
-
-def _operational_staff(users: list[User]) -> list[User]:
-    return [u for u in users if u.active and u.role in _OT_ROLES and u.id is not None]
-
-
-def _ensure_shift_defaults(s: Session, staff: list[User]) -> None:
-    for u in staff:
-        if not u.shift_start:
-            u.shift_start = "08:00"
-        if not u.shift_end:
-            u.shift_end = _OT_SHIFT_END.get(u.role, "17:00")
-        s.add(u)
-
-
-def _ot_daily_chance(month: int, role: str, weekday: int) -> float:
-    """Probability of ≥1 +1h OT tap that day (uses Phuket month demand curve)."""
-    demand = _MONTH_DEMAND.get(month, 0.85)
-    base = 0.14 + 0.22 * min(demand, 1.6)
-    role_f = _OT_ROLE_FACTOR.get(role, 0.5)
-    dow_boost = 1.14 if weekday >= 4 else 1.0
-    return min(0.88, base * role_f * dow_boost)
-
-
-def _seed_demo_overtime_logs(
-    s: Session,
-    staff: list[User],
-    period_start: datetime,
-    now: datetime,
-) -> int:
-    """+1 hr OT taps across demo period (busier Jan–May; lighter Jun–Aug)."""
-    _ensure_shift_defaults(s, staff)
-    created = 0
-
-    day = period_start.replace(hour=0, minute=0, second=0, microsecond=0)
-    end_day = now.replace(hour=23, minute=59, second=59, microsecond=0)
-
-    while day <= end_day:
-        for u in staff:
-            p = _ot_daily_chance(day.month, u.role, day.weekday())
-            if OT_RNG.random() > p:
-                continue
-
-            shift_end = u.shift_end or _OT_SHIFT_END.get(u.role, "17:00")
-            parts = shift_end.split(":")
-            end_h = int(parts[0]) if parts else 17
-            end_m = int(parts[1]) if len(parts) > 1 else 0
-
-            n_ext = 1
-            roll = OT_RNG.random()
-            if day.month in (3, 4) and roll < 0.35:
-                n_ext = OT_RNG.randint(2, 4)
-            elif day.month in (1, 2, 5) and roll < 0.18:
-                n_ext = OT_RNG.randint(2, 3)
-            elif roll < 0.10:
-                n_ext = 2
-
-            # Last hour before shift end (hotel local ≈ UTC+7; stored as UTC naive).
-            local_end_h = (end_h + 7) % 24
-            anchor = day.replace(
-                hour=max(0, local_end_h - 1),
-                minute=OT_RNG.randint(5, 55),
-                second=OT_RNG.randint(0, 59),
-                microsecond=0,
-            )
-            if anchor > now:
-                continue
-
-            for i in range(n_ext):
-                extended_at = anchor + timedelta(hours=i)
-                if extended_at > now:
-                    break
-                ot_until = extended_at + timedelta(hours=1)
-                s.add(
-                    StaffOvertimeLog(
-                        user_id=u.id,  # type: ignore[arg-type]
-                        extended_at=extended_at,
-                        hours=1.0,
-                        shift_end_at_extension=shift_end,
-                        ot_until_after=ot_until,
-                        actor_id=u.id,
-                    ),
-                )
-                created += 1
-
-        day += timedelta(days=1)
-
-    return created
-
-
-# Back-compat name for report demo bundle
-_seed_phuket_high_season_overtime = _seed_demo_overtime_logs
-
-
-def seed_overtime_demo_data(*, force: bool = False) -> dict[str, Any]:
-    """Seed ST03 OT logs from demo period start → today (all months, peak Jan–May)."""
-    with Session(engine) as s:
-        existing = s.exec(select(func.count(StaffOvertimeLog.id))).one() or 0
-        marker = s.get(AppSetting, OT_SEED_MARKER_KEY)
-        if not force and existing > 0 and marker is not None:
-            return {
-                "skipped": True,
-                "reason": "already_seeded",
-                "overtime_logs": existing,
-            }
-
-        if force or existing > 0:
-            s.exec(delete(StaffOvertimeLog))
-            s.commit()
-
-        users = list(s.exec(select(User).where(User.active == True)).all())  # noqa: E712
-        staff = _operational_staff(users)
-        if not staff:
-            return {"skipped": True, "reason": "no_operational_staff"}
-
-        period_start = _demo_period_start()
-        now = _utc_now()
-        created = _seed_demo_overtime_logs(s, staff, period_start, now)
-        s.merge(AppSetting(key=OT_SEED_MARKER_KEY, value=now.isoformat()))
-        s.commit()
-
-        total = s.exec(select(func.count(StaffOvertimeLog.id))).one() or 0
-        return {
-            "ok": True,
-            "created": created,
-            "total_overtime_logs": total,
-            "staff_count": len(staff),
-            "period_from": period_start.isoformat(),
-            "period_to": now.isoformat(),
-            "profile": "full_period_ot_v2",
-        }
 
 
 def seed_report_demo_data(*, force: bool = False, reset: bool = False) -> dict[str, Any]:
@@ -587,7 +432,6 @@ def seed_report_demo_data(*, force: bool = False, reset: bool = False) -> dict[s
         created_items = 0
         created_events = 0
         created_logs = 0
-        created_overtime = 0
         created_stock = 0
         stock_from_deliveries = 0
         stock_auto_restock = 0
@@ -1082,12 +926,6 @@ def seed_report_demo_data(*, force: bool = False, reset: bool = False) -> dict[s
                         created_logs += 1
             d += timedelta(days=1)
 
-        ot_staff = _operational_staff(users)
-        created_overtime = _seed_phuket_high_season_overtime(
-            s, ot_staff, period_start, now,
-        )
-        s.merge(AppSetting(key=OT_SEED_MARKER_KEY, value=now.isoformat()))
-
         stock_snapshot = _apply_final_stock_levels(stock_products)
         for prod in stock_products:
             s.add(prod)
@@ -1123,7 +961,6 @@ def seed_report_demo_data(*, force: bool = False, reset: bool = False) -> dict[s
             "request_items": created_items,
             "timeline_events": created_events,
             "activity_logs": created_logs,
-            "overtime_logs": created_overtime,
             "stock_adjustments": created_stock + stock_from_deliveries + stock_auto_restock,
             "stock_from_deliveries": stock_from_deliveries,
             "stock_auto_restock": stock_auto_restock,

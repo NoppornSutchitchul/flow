@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -48,7 +48,6 @@ import {
   type ScheduleMode,
 } from "../../lib/requestSchedule";
 
-/* eslint-disable react-hooks/set-state-in-effect -- portal menus + reset form when modal closes */
 // Icon + label key per delivery method. Keeps both the dropdown and the
 // split-button face in sync.
 const QUICK_DEPT_HEADER_ICONS: Record<string, ComponentType<{ className?: string }>> = {
@@ -115,7 +114,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
   const [methodMenuStyle, setMethodMenuStyle] = useState<CSSProperties | null>(null);
   const [productListStyle, setProductListStyle] = useState<CSSProperties | null>(null);
 
-  const updateMethodMenuPosition = () => {
+  const updateMethodMenuPosition = useCallback(() => {
     const el = methodTriggerRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -126,9 +125,9 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
       minWidth: "14rem",
       zIndex: 200,
     });
-  };
+  }, []);
 
-  const updateProductListPosition = () => {
+  const updateProductListPosition = useCallback(() => {
     const el = searchInputRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -141,7 +140,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
       maxHeight: Math.max(120, maxH),
       zIndex: 200,
     });
-  };
+  }, []);
 
   // Close the method menu when clicking outside of it.
   useEffect(() => {
@@ -157,7 +156,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
     }
     if (methodOpen) document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
-  }, [methodOpen]);
+  }, [methodOpen, updateMethodMenuPosition]);
 
   useLayoutEffect(() => {
     if (!methodOpen) {
@@ -171,7 +170,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
       window.removeEventListener("resize", updateMethodMenuPosition);
       window.removeEventListener("scroll", updateMethodMenuPosition, true);
     };
-  }, [methodOpen]);
+  }, [methodOpen, updateMethodMenuPosition]);
 
   const { data: products = [] } = useQuery({
     queryKey: ["products"],
@@ -299,31 +298,27 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
     return pool.filter((u) => ids.has(u.id));
   };
 
-  const hkPool = useMemo(
-    () =>
-      filterOnlinePool(
-        assignableUsersForRoom(
-          "housekeeping",
-          userList,
-          room,
-          guestRooms,
-          hotelCodes,
-        ),
-        "housekeeping",
-      ),
-    [userList, room, guestRooms, hotelCodes, assignableStaff],
+  const hkPool = filterOnlinePool(
+    assignableUsersForRoom(
+      "housekeeping",
+      userList,
+      room,
+      guestRooms,
+      hotelCodes,
+    ),
+    "housekeeping",
   );
-  const mtPool = useMemo(
-    () => filterOnlinePool(assignableUsers("maintenance", userList), "maintenance"),
-    [userList, assignableStaff],
+  const mtPool = filterOnlinePool(
+    assignableUsers("maintenance", userList),
+    "maintenance",
   );
-  const foPool = useMemo(
-    () => filterOnlinePool(assignableUsers("front_office", userList), "front_office"),
-    [userList, assignableStaff],
+  const foPool = filterOnlinePool(
+    assignableUsers("front_office", userList),
+    "front_office",
   );
-  const bbPool = useMemo(
-    () => filterOnlinePool(assignableUsers("bell_boy", userList), "bell_boy"),
-    [userList, assignableStaff],
+  const bbPool = filterOnlinePool(
+    assignableUsers("bell_boy", userList),
+    "bell_boy",
   );
 
   const hkZoneGroups = sortedZoneGroups(hkPool, t("quick.zone_no"), {
@@ -437,15 +432,17 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
       window.removeEventListener("resize", updateProductListPosition);
       window.removeEventListener("scroll", updateProductListPosition, true);
     };
-  }, [showList, filtered.length]);
+  }, [showList, filtered.length, updateProductListPosition]);
 
-  const pickedStockKey = useMemo(
-    () =>
-      picked
-        .filter((p) => !p.product.is_service)
-        .map((p) => `${p.product.id}:${p.qty}`)
-        .join(","),
+  const pickedStockLines = useMemo(
+    () => picked
+      .filter((p) => !p.product.is_service)
+      .map((p) => ({ product_id: p.product.id, qty: p.qty })),
     [picked],
+  );
+  const pickedStockKey = useMemo(
+    () => pickedStockLines.map((p) => `${p.product_id}:${p.qty}`).join(","),
+    [pickedStockLines],
   );
 
   useEffect(() => {
@@ -454,12 +451,9 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
       setOutOfStockIds(new Set());
       return;
     }
-    const lines = picked
-      .filter((p) => !p.product.is_service)
-      .map((p) => ({ product_id: p.product.id, qty: p.qty }));
     const timer = window.setTimeout(() => {
       stockApi
-        .check(lines)
+        .check(pickedStockLines)
         .then(() => setOutOfStockIds(new Set()))
         .catch((e) => {
           if (e instanceof ApiError && isInsufficientStockDetail(e.payload)) {
@@ -470,7 +464,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
         });
     }, 200);
     return () => window.clearTimeout(timer);
-  }, [open, pickedStockKey]);
+  }, [open, pickedStockKey, pickedStockLines]);
 
   const updateQty = (productId: number, delta: number) => {
     setPicked((cur) =>

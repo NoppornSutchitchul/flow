@@ -1,4 +1,4 @@
-"""Persistent models for HotelOps.
+"""Persistent models for Flow.
 
 The schema is intentionally lean — it captures everything the prototype
 needs (requests, products, users, timeline) without over-modeling the
@@ -31,40 +31,7 @@ class User(SQLModel, table=True):
     active: bool = True
     # JSON map of permission overrides; merged with role defaults (see services.effective_permissions).
     permissions_json: Optional[str] = None
-    # Daily shift window (hotel local time, HH:MM). Required for receiving auto-assignments.
-    shift_start: Optional[str] = None
-    shift_end: Optional[str] = None
-    """UTC — extended end when staff taps +1h OT."""
-    shift_ot_until: Optional[datetime] = None
-    """UTC — when shift times were last set at login; edit locked after +1 hour."""
-    shift_set_at: Optional[datetime] = None
-    """When False, staff cannot use the OT request button (set by admin per user)."""
-    can_request_ot: bool = True
     created_at: datetime = Field(default_factory=datetime.utcnow)
-
-
-class StaffOvertimeLog(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="user.id", index=True)
-    extended_at: datetime = Field(default_factory=datetime.utcnow, index=True)
-    hours: float = 1.0
-    shift_end_at_extension: str = ""
-    ot_until_after: datetime
-    actor_id: Optional[int] = Field(default=None, foreign_key="user.id")
-
-
-class StaffOvertimeRequest(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="user.id", index=True)
-    department: str = Field(index=True)
-    status: str = "pending"  # pending | approved | rejected
-    requested_at: datetime = Field(default_factory=datetime.utcnow, index=True)
-    """UTC — hotel-local OT hour [start, end)."""
-    ot_start: datetime
-    ot_end: datetime
-    manager_id: Optional[int] = Field(default=None, foreign_key="user.id")
-    decided_at: Optional[datetime] = None
-    shift_end_snapshot: str = ""
 
 
 class AuthSession(SQLModel, table=True):

@@ -284,7 +284,7 @@ function GuestRoomFormModal({
     setAreaSqm(String(defaultSize));
     setBed(defaultBed);
     setConnectingPeer("");
-  }, [mode, room?.id, defaultBuilding, defaultFloor, defaultType, defaultView, defaultSize, defaultBed]);
+  }, [mode, room, defaultBuilding, defaultFloor, defaultType, defaultView, defaultSize, defaultBed]);
 
   useEffect(() => {
     const parsed = parseRoomNumberDigits(number, buildingCodes, floorCodes);

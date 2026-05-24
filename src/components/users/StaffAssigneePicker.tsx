@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { Check, ChevronDown, Search, Sparkles } from "lucide-react";
@@ -137,7 +137,7 @@ export function StaffAssigneePicker({
     return () => document.removeEventListener("keydown", onKey, true);
   }, [open]);
 
-  const updateMenuPosition = () => {
+  const updateMenuPosition = useCallback(() => {
     const el = rootRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -170,7 +170,7 @@ export function StaffAssigneePicker({
         maxHeight: Math.max(120, Math.min(preferredMax, spaceBelow)),
       });
     }
-  };
+  }, [menuPlacement]);
 
   useLayoutEffect(() => {
     if (!open) {
@@ -184,7 +184,7 @@ export function StaffAssigneePicker({
       window.removeEventListener("resize", updateMenuPosition);
       window.removeEventListener("scroll", updateMenuPosition, true);
     };
-  }, [open, menuPlacement, groups.length, value]);
+  }, [open, menuPlacement, groups.length, value, updateMenuPosition]);
 
   const menu =
     open && menuRect

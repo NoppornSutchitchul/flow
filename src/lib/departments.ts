@@ -151,7 +151,7 @@ export function useDepartments(enabled = true) {
     staleTime: 60_000,
   });
 
-  const departments = q.data ?? [];
+  const departments = useMemo(() => q.data ?? [], [q.data]);
 
   const labelFor = useCallback(
     (code: string | null | undefined) => departmentLabelForCode(code, departments),
@@ -217,11 +217,11 @@ export function buildDepartmentPickerGroups(
 }
 
 export function useDepartmentPickerGroups(enabled = true) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { departments, isLoading, departmentLabel } = useDepartments(enabled);
   const groups = useMemo(
     () => buildDepartmentPickerGroups(departments, t),
-    [departments, t, i18n.language],
+    [departments, t],
   );
   return { groups, departments, isLoading, departmentLabel };
 }

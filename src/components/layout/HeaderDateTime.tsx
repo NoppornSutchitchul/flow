@@ -67,7 +67,9 @@ export function HeaderDateTime({
   const [popoverStyle, setPopoverStyle] = useState<CSSProperties | null>(null);
 
   const todayIso = isoDateLocal(now);
-  const today = parseIsoDate(todayIso) ?? now;
+  const today = useMemo(() => parseIsoDate(todayIso) ?? now, [todayIso, now]);
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth();
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
 
@@ -78,9 +80,9 @@ export function HeaderDateTime({
 
   useEffect(() => {
     if (!open) return;
-    setViewYear(today.getFullYear());
-    setViewMonth(today.getMonth());
-  }, [open, todayIso]);
+    setViewYear(todayYear);
+    setViewMonth(todayMonth);
+  }, [open, todayYear, todayMonth]);
 
   const updatePopoverPosition = useCallback(() => {
     if (!buttonRef.current) return;

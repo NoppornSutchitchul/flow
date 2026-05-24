@@ -668,8 +668,7 @@
       "dnd_incident_report": "รายงานเหตุการณ์ DND",
       "month_over_month_comparison": "รายงานเปรียบเทียบรายเดือน",
       "service_only_room_requests": "รายงานคำขอบริการ",
-      "stock_only_room_requests": "รายงานคำขอสินค้า",
-      "employee_overtime": "รายงาน OT พนักงาน"
+      "stock_only_room_requests": "รายงานคำขอสินค้า"
     },
     "no_data": "ไม่มีข้อมูลในช่วงที่เลือก",
     "table": {
@@ -747,18 +746,6 @@
       "dept_summary_table": "สรุปตามแผนก",
       "dept_summary_table_desc": "งานเสร็จและอัตราส่งมอบตรงกำหนดแยกแผนก",
       "workload_mean_desc": "เทียบกับค่าเฉลี่ยทีม — สีแดง = โหลดสูงกว่าปกติ",
-      "ot_sessions": "ครั้งที่ขยาย OT",
-      "ot_total_hours": "ชั่วโมง OT รวม",
-      "ot_log_title": "บันทึกการขยาย OT",
-      "ot_log_desc": "รายการแต่ละครั้งที่กด +1 ชม. OT (กดการ์ด「ครั้งที่ขยาย OT」เพื่อเลื่อนมาดู)",
-      "ot_log_limit_note": "ตารางนี้แสดง {{shown}} จาก {{total}} ครั้ง — การ์ดด้านบนนับครบทุกครั้ง เปลี่ยนตัวกรอง「จำนวนแถว」เป็น「แสดงทั้งหมด」เพื่อโหลดรายการครบ",
-      "ot_summary_title": "สรุปรายบุคคล",
-      "ot_col_staff": "พนักงาน",
-      "ot_col_position": "ตำแหน่ง",
-      "ot_col_department": "แผนก",
-      "ot_col_when": "เมื่อ",
-      "ot_col_hours": "ชม.",
-      "ot_col_until": "รับงานได้ถึง",
       "top_consumed_bars": "10 อันดับสินค้าที่ใช้มากสุด",
       "top_consumed_desc": "จำนวนหน่วยที่ใช้ในช่วงที่เลือก",
       "reassign_empty_desc": "ไม่มีเหตุผลมอบหมายใหม่ — ระบบมอบหมายอัตโนมัติเสถียร",
@@ -923,7 +910,6 @@
       "unique_rooms_stock": "ห้องที่ขอสินค้า",
       "product_name_col": "สินค้า",
       "event": "เหตุการณ์",
-      "date": "วันที่",
       "lifecycle_stage": {
         "created": "สร้างคำขอ",
         "assigned": "มอบหมายแล้ว",
@@ -957,7 +943,6 @@
         "note": "บันทึก"
       },
       "qty": "จำนวน",
-      "reason": "เหตุผล",
       "user": "ผู้ทำ",
       "when": "เมื่อ",
       "req_number": "เลขคำขอ",
@@ -1306,8 +1291,6 @@
     "form_error_username_short": "ชื่อผู้ใช้ต้องมีอย่างน้อย 2 ตัวอักษร",
     "form_error_username_taken": "ชื่อผู้ใช้นี้ถูกใช้แล้ว",
     "form_error_create_failed": "สร้างผู้ใช้ไม่สำเร็จ",
-    "can_request_ot": "ขอทำ OT ได้",
-    "can_request_ot_hint": "ปิดสำหรับผู้จัดการ / Assistant Manager",
     "role_group_leadership": "ผู้บริหารและระบบ",
     "role_group_front": "พนักงานต้อนรับ",
     "role_group_hk": "แม่บ้าน",
@@ -1399,52 +1382,6 @@
       "public_area_housekeeper": "แม่บ้านพื้นที่สาธารณะ",
       "maintenance_technician": "ช่างซ่อมบำรุง"
     }
-  },
-  "shift": {
-    "setup_title": "ตั้งกะการทำงานของคุณ",
-    "setup_intro": "ระบบจะส่งงานให้เฉพาะพนักงานที่เข้าสู่ระบบและอยู่ในเวลางานเท่านั้น กรุณาระบุเวลาเริ่มและเลิกงานของกะวันนี้",
-    "setup_save": "บันทึกกะงาน",
-    "setup_error": "ไม่สามารถบันทึกกะงานได้ กรุณาตรวจสอบเวลา",
-    "settings_title": "กะการทำงาน",
-    "settings_intro": "แสดงเวลาเริ่ม–เลิกงานของคุณ ระบบจะหยุดส่งงานใหม่ก่อนเลิกงานเพื่อให้เคลียร์คิวก่อนออก",
-    "start": "เริ่มงาน",
-    "end": "เลิกงาน",
-    "policy_title": "นโยบายมอบหมายงานตามกะ",
-    "policy_intro": "ค่าเริ่มต้นกะงานของโรงแรมและ wind-down — เฉพาะผู้ดูแลระบบแก้ไขได้",
-    "default_start": "เวลาเริ่มงานเริ่มต้น (ค่า default)",
-    "default_duration_hours": "ความยาวกะเริ่มต้น (ชั่วโมง)",
-    "policy_preview": "ตัวอย่างกะ default: {{start}} – {{end}} ({{hours}} ชม.)",
-    "setup_default_hint": "ค่าเริ่มต้นของโรงแรม: กะ {{hours}} ชั่วโมง (ปรับได้หลังบันทึก)",
-    "staff_policy_note": "กะมาตรฐานของโรงแรม {{hours}} ชม. · หยุดส่งงานใหม่ก่อนเลิก {{minutes}} นาที",
-    "wind_down_minutes": "หยุดส่งงานใหม่ก่อนเลิก (นาที)",
-    "wind_down_note": "ระบบจะไม่ส่งงานใหม่ให้คุณภายใน {{minutes}} นาทีก่อนเวลาเลิกงาน เว้นแต่กดขยาย OT",
-    "status_heading": "สถานะตอนนี้",
-    "status_on_duty": "อยู่ในเวลางาน",
-    "status_new_work": "รับงานใหม่",
-    "status_until": "ถึง {{time}}",
-    "status_accepts_work": "รับงานใหม่ได้",
-    "status_cutoff": "รับงานใหม่ได้จนถึง",
-    "status_work_until": "รับงานใหม่ถึง {{time}}",
-    "status_not_accepting_work": "ไม่รับงานใหม่",
-    "status_login_for_assignments": "เข้าสู่ระบบเพื่อรับงานใหม่",
-    "status_yes": "ใช่",
-    "status_no": "ไม่",
-    "ot_extend_button": "ขอทำ OT",
-    "ot_request_button": "ขอ OT {{slot}}",
-    "ot_request_hint": "ส่งคำขอ OT ช่วง {{slot}} ให้ Manager อนุมัติ (นับหลังเลิกงาน)",
-    "ot_extend_hint": "ส่งคำขอทำ OT ชั่วโมงถัดไปหลังเลิกงานให้ Manager อนุมัติ",
-    "ot_active_until": "OT ถึง {{time}}",
-    "ot_pending_manager": "รอ Manager อนุมัติ — OT {{slot}}",
-    "locked_note": "ล็อกเวลางานแล้ว (ผ่านไป 1 ชม. หลังตั้งกะ) — ขอ OT ได้ในชั่วโมงก่อนเริ่มช่วง OT แต่ละรอบ",
-    "edit_until": "แก้ไขเวลางานได้จนถึง {{time}}",
-    "ot_cooldown_until": "ขอ OT รอบถัดไปได้หลัง {{time}}",
-    "ot_not_in_window": "ขอ OT ได้เฉพาะชั่วโมงก่อนเริ่มช่วง OT รอบถัดไป",
-    "ot_not_allowed": "บัญชีนี้ไม่ได้รับอนุญาตให้ขอ OT",
-    "manager_ot_panel_title": "คำขออนุมัติ OT",
-    "manager_ot_slot": "ช่วง OT {{slot}}",
-    "manager_ot_requested_at": "ส่งคำขอเมื่อ {{time}}",
-    "manager_ot_approve": "อนุมัติ",
-    "manager_ot_reject": "ปฏิเสธ"
   },
   "settings": {
     "title": "ตั้งค่า",
@@ -1760,127 +1697,490 @@
     "connecting": "มีประตูเชื่อมกับห้อง {{peer}}"
   },
   "hotelLocations": {
-    "HK_LOC_BALLROOM": { "label": "ห้องบอลรูม", "hint": "งานเลี้ยงใหญ่" },
-    "HK_LOC_BANQUET_PREP": { "label": "ครัวเตรียม Banquet", "hint": "Banquet prep kitchen" },
-    "HK_LOC_BAR": { "label": "บาร์", "hint": "จุดเครื่องดื่ม" },
-    "HK_LOC_BELL_DESK": { "label": "เคาน์เตอร์ Bell / ขนสัมภาระ", "hint": "Bell desk" },
-    "HK_LOC_BUSINESS": { "label": "Business Center", "hint": "ศูนย์ธุรกิจ" },
-    "HK_LOC_CAFE": { "label": "คาเฟ่ / โรงอาหาร", "hint": "Café & light dining" },
-    "HK_LOC_CANTEEN": { "label": "แคนทีนพนักงาน", "hint": "Staff canteen" },
-    "HK_LOC_CONCIERGE": { "label": "เคาน์เตอร์ Concierge", "hint": "บริการ Concierge" },
-    "HK_LOC_DRIVEWAY": { "label": "ลานรถ", "hint": "ทางรถบริการ" },
-    "HK_LOC_EVENT": { "label": "งานอีเวนต์", "hint": "โซนจัดงาน" },
-    "HK_LOC_FITNESS": { "label": "ฟิตเนส", "hint": "ห้องออกกำลังกาย" },
-    "HK_LOC_FRONT_DESK": { "label": "เคาเตอร์แผนกต้อนรับ", "hint": "แผนกต้อนรับ" },
-    "HK_LOC_FRONT_OFFICE": { "label": "ออฟฟิศแผนกต้อนรับ", "hint": "Back office Front Office" },
-    "HK_LOC_GARBAGE": { "label": "ห้องขยะ", "hint": "Garbage / trash room" },
-    "HK_LOC_GARDEN": { "label": "สวน", "hint": "พื้นที่สวน" },
-    "HK_LOC_HALL": { "label": "โถงล็อบบี้", "hint": "ทางเดินหลักและโถงต้อนรับ" },
-    "HK_LOC_HK_PANTRY_T1": { "label": "Pantry แม่บ้าน ตึก 1", "hint": "Housekeeping pantry — Tower 1" },
-    "HK_LOC_HK_PANTRY_T2": { "label": "Pantry แม่บ้าน ตึก 2", "hint": "Housekeeping pantry — Tower 2" },
-    "HK_LOC_KIDS": { "label": "Kids Club", "hint": "ห้องเด็ก" },
-    "HK_LOC_KITCH_COLD": { "label": "ครัวเย็น", "hint": "Cold kitchen / prep" },
-    "HK_LOC_KITCH_HOT": { "label": "ครัวร้อน", "hint": "Hot kitchen" },
-    "HK_LOC_LAUNDRY": { "label": "ซักรีด", "hint": "Laundry" },
-    "HK_LOC_LIFT": { "label": "ลิฟต์ (ทั่วไป)", "hint": "ช่องโดยสาร — ใช้เมื่อไม่ระบุตึก" },
-    "HK_LOC_LINEN": { "label": "ห้องผ้า", "hint": "Linen room" },
-    "HK_LOC_LOADING": { "label": "ทางขนของ / Loading dock", "hint": "Loading & receiving" },
-    "HK_LOC_LOBBY": { "label": "ล็อบบี้", "hint": "จุดต้อนรับแขก" },
-    "HK_LOC_LOBBY_WR_F": { "label": "ห้องน้ำหญิง Lobby", "hint": "ห้องน้ำแขก — โซนล็อบบี้" },
-    "HK_LOC_LOBBY_WR_M": { "label": "ห้องน้ำชาย Lobby", "hint": "ห้องน้ำแขก — โซนล็อบบี้" },
-    "HK_LOC_LOCKER": { "label": "ล็อกเกอร์พนักงาน", "hint": "Staff lockers" },
-    "HK_LOC_LUGGAGE": { "label": "ห้องเก็บกระเป๋า", "hint": "Luggage storage" },
-    "HK_LOC_MEETING": { "label": "ห้องประชุม", "hint": "ห้องประชุม" },
-    "HK_LOC_OFF_ENG": { "label": "ออฟฟิศวิศวกรรม", "hint": "Engineering office" },
-    "HK_LOC_OFF_FIN": { "label": "ออฟฟิศการเงิน", "hint": "Finance office" },
-    "HK_LOC_OFF_FNB": { "label": "ออฟฟิศ F&B", "hint": "Food & Beverage office" },
-    "HK_LOC_OFF_GM": { "label": "ออฟฟิศผู้จัดการ", "hint": "General Manager office" },
-    "HK_LOC_OFF_HK": { "label": "ออฟฟิศแม่บ้าน", "hint": "Housekeeping office" },
-    "HK_LOC_OFF_HR": { "label": "ออฟฟิศ HR", "hint": "Human Resources office" },
-    "HK_LOC_OFF_MT": { "label": "ออฟฟิศช่างซ่อม", "hint": "Maintenance office" },
-    "HK_LOC_OFF_SALES": { "label": "ออฟฟิศฝ่ายขาย", "hint": "Sales & Marketing office" },
-    "HK_LOC_OFF_SEC": { "label": "ออฟฟิศรักษาความปลอดภัย", "hint": "Security office" },
-    "HK_LOC_PARKING": { "label": "ลานจอดรถ", "hint": "ลานจอดรถ" },
-    "HK_LOC_POOL": { "label": "สระน้ำ", "hint": "พื้นที่ริมสระ" },
-    "HK_LOC_POOL_DECK": { "label": "ลานรอบสระ", "hint": "ลานนั่งเล่น" },
-    "HK_LOC_POOL_WR_F": { "label": "ห้องน้ำหญิง ริมสระ", "hint": "ห้องน้ำแขก — โซนสระ" },
-    "HK_LOC_POOL_WR_M": { "label": "ห้องน้ำชาย ริมสระ", "hint": "ห้องน้ำแขก — โซนสระ" },
-    "HK_LOC_PORTICO": { "label": "หลังคาทางเข้า", "hint": "ทางเข้าหลัก" },
-    "HK_LOC_PRE_FUNC": { "label": "Pre-function", "hint": "โซนรอเข้างาน" },
-    "HK_LOC_RESTAURANT": { "label": "ห้องอาหาร", "hint": "จุดบริการอาหาร" },
-    "HK_LOC_ROOFTOP": { "label": "ดาดฟ้า", "hint": "Rooftop" },
-    "HK_LOC_ROOM_SERVICE": { "label": "จุดรับส่งอาหารห้องพัก", "hint": "หลังบ้าน F&B" },
-    "HK_LOC_SALON": { "label": "ซาลอน", "hint": "บริการความงาม" },
-    "HK_LOC_SAUNA": { "label": "ซาวน่า", "hint": "ห้องซาวน่า" },
-    "HK_LOC_SPA": { "label": "สปา", "hint": "โซนสปาและนวด" },
-    "HK_LOC_STAFF_ENT": { "label": "ทางเข้าพนักงาน", "hint": "Staff entrance" },
-    "HK_LOC_STAFF_WR_F": { "label": "ห้องน้ำหญิงพนักงาน", "hint": "ห้องน้ำพนักงาน" },
-    "HK_LOC_STAFF_WR_M": { "label": "ห้องน้ำชายพนักงาน", "hint": "ห้องน้ำพนักงาน" },
-    "HK_LOC_STEWARD": { "label": "Stewarding / ล้างจาน", "hint": "Dish wash & stewarding" },
-    "HK_LOC_STORAGE": { "label": "ห้องเก็บของ", "hint": "General storage" },
-    "HK_LOC_T1_F1_CORR": { "label": "ทางเดิน (Corridor) ชั้น 1 ตึก 1", "hint": "Corridor ตึก 1 ชั้น 1" },
-    "HK_LOC_T1_F2_CORR": { "label": "ทางเดิน (Corridor) ชั้น 2 ตึก 1", "hint": "Corridor ตึก 1 ชั้น 2" },
-    "HK_LOC_T1_F3_CORR": { "label": "ทางเดิน (Corridor) ชั้น 3 ตึก 1", "hint": "Corridor ตึก 1 ชั้น 3" },
-    "HK_LOC_T1_F4_CORR": { "label": "ทางเดิน (Corridor) ชั้น 4 ตึก 1", "hint": "Corridor ตึก 1 ชั้น 4" },
-    "HK_LOC_T1_F5_CORR": { "label": "ทางเดิน (Corridor) ชั้น 5 ตึก 1", "hint": "Corridor ตึก 1 ชั้น 5" },
-    "HK_LOC_T1_LIFT_1": { "label": "ลิฟต์ ตัวที่ 1 ตึก 1", "hint": "ลิฟต์โดยสาร ตึก 1" },
-    "HK_LOC_T1_LIFT_2": { "label": "ลิฟต์ ตัวที่ 2 ตึก 1", "hint": "ลิฟต์โดยสาร ตึก 1" },
-    "HK_LOC_T1_LIFT_SVC": { "label": "ลิฟต์แม่บ้าน (Service) ตึก 1", "hint": "ลิฟต์บริการ ตึก 1" },
-    "HK_LOC_T1_STAIR": { "label": "บันไดหลัง ตึก 1", "hint": "Back staircase — Tower 1" },
-    "HK_LOC_T2_F1_CORR": { "label": "ทางเดิน (Corridor) ชั้น 1 ตึก 2", "hint": "Corridor ตึก 2 ชั้น 1" },
-    "HK_LOC_T2_F2_CORR": { "label": "ทางเดิน (Corridor) ชั้น 2 ตึก 2", "hint": "Corridor ตึก 2 ชั้น 2" },
-    "HK_LOC_T2_F3_CORR": { "label": "ทางเดิน (Corridor) ชั้น 3 ตึก 2", "hint": "Corridor ตึก 2 ชั้น 3" },
-    "HK_LOC_T2_F4_CORR": { "label": "ทางเดิน (Corridor) ชั้น 4 ตึก 2", "hint": "Corridor ตึก 2 ชั้น 4" },
-    "HK_LOC_T2_F5_CORR": { "label": "ทางเดิน (Corridor) ชั้น 5 ตึก 2", "hint": "Corridor ตึก 2 ชั้น 5" },
-    "HK_LOC_T2_LIFT_1": { "label": "ลิฟต์ ตัวที่ 1 ตึก 2", "hint": "ลิฟต์โดยสาร ตึก 2" },
-    "HK_LOC_T2_LIFT_2": { "label": "ลิฟต์ ตัวที่ 2 ตึก 2", "hint": "ลิฟต์โดยสาร ตึก 2" },
-    "HK_LOC_T2_LIFT_SVC": { "label": "ลิฟต์แม่บ้าน (Service) ตึก 2", "hint": "ลิฟต์บริการ ตึก 2" },
-    "HK_LOC_T2_STAIR": { "label": "บันไดหลัง ตึก 2", "hint": "Back staircase — Tower 2" },
-    "HK_LOC_TERRACE": { "label": "ระเบียง", "hint": "ระเบียงกลางแจ้ง" },
-    "HK_LOC_UNIFORM": { "label": "ห้องเครื่องแบบ", "hint": "Uniform room" },
-    "HK_LOC_VIP_LOUNGE": { "label": "VIP Lounge", "hint": "ห้องรับรอง VIP" },
-    "HK_LOC_WALKWAY": { "label": "ทางเดินกลางแจ้ง", "hint": "ทางเดินกลางแจ้ง" },
-    "HK_LOC_WAITING": { "label": "ห้องรอรับแขก", "hint": "โซนที่นั่งรอเช็คอิน / รอรถ" },
-    "HK_LOC_GIFT_SHOP": { "label": "ร้านของที่ระลึก", "hint": "Gift shop & souvenirs" },
-    "HK_LOC_MINI_MART": { "label": "มินิมาร์ทโรงแรม", "hint": "สินค้าสะดวกซื้อ & ของใช้จำเป็น" },
-    "HK_LOC_EXEC_LOUNGE": { "label": "Executive Lounge", "hint": "เลานจ์ผู้บริหาร / ชั้นสูง" },
-    "HK_LOC_CLUB_LOUNGE": { "label": "Club Lounge", "hint": "เลานจ์สมาชิก / Club floor" },
-    "HK_LOC_REST_WR_F": { "label": "ห้องน้ำหญิง โซนร้านอาหาร", "hint": "ห้องน้ำแขก — ใกล้ F&B" },
-    "HK_LOC_REST_WR_M": { "label": "ห้องน้ำชาย โซนร้านอาหาร", "hint": "ห้องน้ำแขก — ใกล้ F&B" },
-    "HK_LOC_SPA_WR_F": { "label": "ห้องน้ำหญิง สปา", "hint": "ห้องน้ำแขก — โซนสปา" },
-    "HK_LOC_SPA_WR_M": { "label": "ห้องน้ำชาย สปา", "hint": "ห้องน้ำแขก — โซนสปา" },
-    "HK_LOC_FIT_WR_F": { "label": "ห้องน้ำหญิง ฟิตเนส", "hint": "ห้องน้ำแขก — โซนฟิตเนส" },
-    "HK_LOC_FIT_WR_M": { "label": "ห้องน้ำชาย ฟิตเนส", "hint": "ห้องน้ำแขก — โซนฟิตเนส" },
-    "HK_LOC_BALL_WR_F": { "label": "ห้องน้ำหญิง บอลรูม", "hint": "ห้องน้ำแขก — โซนงานเลี้ยง" },
-    "HK_LOC_BALL_WR_M": { "label": "ห้องน้ำชาย บอลรูม", "hint": "ห้องน้ำแขก — โซนงานเลี้ยง" },
-    "HK_LOC_TERRACE_REST": { "label": "ร้าน The Terrace", "hint": "All Day Dining & บุฟเฟ่ต์" },
-    "HK_LOC_LOTUS_GARDEN": { "label": "ร้าน Lotus Garden", "hint": "อาหารจีน & ติ่มซำ" },
-    "HK_LOC_RIVERSIDE_GRILL": { "label": "ร้าน Riverside Grill", "hint": "ปิ้งย่าง & สเต็ก" },
-    "HK_LOC_SKY_BAR": { "label": "บาร์ Skyline Lounge", "hint": "ค็อกเทล & วิวเมือง — ล็อบบี้" },
-    "HK_LOC_POOL_BAR": { "label": "บาร์ Pool Bar", "hint": "เครื่องดื่ม & ว่ายน้ำ — ริมสระ" },
-    "HK_LOC_LOBBY_LOUNGE": { "label": "Lobby Lounge", "hint": "เครื่องดื่ม & ขนาว — โถงล็อบบี้" },
-    "HK_LOC_BAKERY": { "label": "เบเกอรี Casa Bloom", "hint": "ขนมปัง & กาแฟพิเศษ" },
-    "HK_LOC_INROOM_PICKUP": { "label": "จุดรับอาหาร In-Room", "hint": "หยิบอาหาร Room Service" },
-    "HK_LOC_TEA_LOUNGE": { "label": "Tea Lounge ชาบู", "hint": "น้ำชา & ขนมบ่าย" },
-    "HK_LOC_POOL_KIDS": { "label": "สระเด็ก", "hint": "สระน้ำสำหรับเด็ก" },
-    "HK_LOC_JACUZZI": { "label": "จากุซซี & สระน้ำร้อน", "hint": "โซนน้ำร้อนริมสระ" },
-    "HK_LOC_POOL_TOWEL": { "label": "จุดผ้าเช็ดตัวสระ", "hint": "เช็คผ้าเช็ดตัว & เก้าอาด" },
-    "HK_LOC_SPA_RECEPT": { "label": "รีเซ็ปชันสปา", "hint": "ต้อนรับ & นัดหมายนวด" },
-    "HK_LOC_YOGA": { "label": "สตูดิโอโยคะ", "hint": "โยคะ & พิลาทิส" },
-    "HK_LOC_GAME_ROOM": { "label": "ห้องเกม & บันไดเล่น", "hint": "โซนพักผ่อนในร่ม" },
-    "HK_LOC_MEET_EMERALD": { "label": "ห้องประชุม Emerald", "hint": "ความจุกลาง — แบ่งห้องได้" },
-    "HK_LOC_MEET_SAPPHIRE": { "label": "ห้องประชุม Sapphire", "hint": "ความจุกลาง" },
-    "HK_LOC_MEET_RUBY": { "label": "ห้องประชุม Ruby", "hint": "ห้องประชุมเล็ก" },
-    "HK_LOC_BOARDROOM": { "label": "ห้องประชุมผู้บริหาร", "hint": "Boardroom" },
-    "HK_LOC_BRIDAL": { "label": "ห้องเตรียมเจ้าบ่าว-เจ้าสาว", "hint": "Bridal suite / prep" },
-    "HK_LOC_VALET": { "label": "จุด Valet", "hint": "รับ-ส่งรถหน้าโรงแรม" },
-    "HK_LOC_TAXI": { "label": "จุดเรียกแท็กซี่", "hint": "แท็กซี่ & รถรับจ้าง" },
-    "HK_LOC_SHUTTLE": { "label": "จุดรถรับส่งโรงแรม", "hint": "Shuttle bus / ทัวร์" },
-    "HK_LOC_EV_CHARGE": { "label": "สถานีชาร์จ EV", "hint": "ที่ชาร์จรถไฟฟ้า" },
-    "HK_LOC_SMOKING": { "label": "โซนสูบบุหรี่ (กลางแจ้ง)", "hint": "ที่สูบบุหรี่ที่กำหนด" },
-    "HK_LOC_FIRST_AID": { "label": "ห้องปฐมพยาบาล", "hint": "First aid / พยาบาลประจำโรงแรม" },
-    "HK_LOC_PRAYER": { "label": "ห้องละหมาด / ห้องสวดมนต์", "hint": "ศาสนสถานภายในโรงแรม" },
-    "HK_LOC_WATER_FEATURE": { "label": "น้ำพุ & ลานกลาง", "hint": "จุดถ่ายรูป / ลานกลางโรงแรม" }
+    "HK_LOC_BALLROOM": {
+      "label": "ห้องบอลรูม",
+      "hint": "งานเลี้ยงใหญ่"
+    },
+    "HK_LOC_BANQUET_PREP": {
+      "label": "ครัวเตรียม Banquet",
+      "hint": "Banquet prep kitchen"
+    },
+    "HK_LOC_BAR": {
+      "label": "บาร์",
+      "hint": "จุดเครื่องดื่ม"
+    },
+    "HK_LOC_BELL_DESK": {
+      "label": "เคาน์เตอร์ Bell / ขนสัมภาระ",
+      "hint": "Bell desk"
+    },
+    "HK_LOC_BUSINESS": {
+      "label": "Business Center",
+      "hint": "ศูนย์ธุรกิจ"
+    },
+    "HK_LOC_CAFE": {
+      "label": "คาเฟ่ / โรงอาหาร",
+      "hint": "Café & light dining"
+    },
+    "HK_LOC_CANTEEN": {
+      "label": "แคนทีนพนักงาน",
+      "hint": "Staff canteen"
+    },
+    "HK_LOC_CONCIERGE": {
+      "label": "เคาน์เตอร์ Concierge",
+      "hint": "บริการ Concierge"
+    },
+    "HK_LOC_DRIVEWAY": {
+      "label": "ลานรถ",
+      "hint": "ทางรถบริการ"
+    },
+    "HK_LOC_EVENT": {
+      "label": "งานอีเวนต์",
+      "hint": "โซนจัดงาน"
+    },
+    "HK_LOC_FITNESS": {
+      "label": "ฟิตเนส",
+      "hint": "ห้องออกกำลังกาย"
+    },
+    "HK_LOC_FRONT_DESK": {
+      "label": "เคาเตอร์แผนกต้อนรับ",
+      "hint": "แผนกต้อนรับ"
+    },
+    "HK_LOC_FRONT_OFFICE": {
+      "label": "ออฟฟิศแผนกต้อนรับ",
+      "hint": "Back office Front Office"
+    },
+    "HK_LOC_GARBAGE": {
+      "label": "ห้องขยะ",
+      "hint": "Garbage / trash room"
+    },
+    "HK_LOC_GARDEN": {
+      "label": "สวน",
+      "hint": "พื้นที่สวน"
+    },
+    "HK_LOC_HALL": {
+      "label": "โถงล็อบบี้",
+      "hint": "ทางเดินหลักและโถงต้อนรับ"
+    },
+    "HK_LOC_HK_PANTRY_T1": {
+      "label": "Pantry แม่บ้าน ตึก 1",
+      "hint": "Housekeeping pantry — Tower 1"
+    },
+    "HK_LOC_HK_PANTRY_T2": {
+      "label": "Pantry แม่บ้าน ตึก 2",
+      "hint": "Housekeeping pantry — Tower 2"
+    },
+    "HK_LOC_KIDS": {
+      "label": "Kids Club",
+      "hint": "ห้องเด็ก"
+    },
+    "HK_LOC_KITCH_COLD": {
+      "label": "ครัวเย็น",
+      "hint": "Cold kitchen / prep"
+    },
+    "HK_LOC_KITCH_HOT": {
+      "label": "ครัวร้อน",
+      "hint": "Hot kitchen"
+    },
+    "HK_LOC_LAUNDRY": {
+      "label": "ซักรีด",
+      "hint": "Laundry"
+    },
+    "HK_LOC_LIFT": {
+      "label": "ลิฟต์ (ทั่วไป)",
+      "hint": "ช่องโดยสาร — ใช้เมื่อไม่ระบุตึก"
+    },
+    "HK_LOC_LINEN": {
+      "label": "ห้องผ้า",
+      "hint": "Linen room"
+    },
+    "HK_LOC_LOADING": {
+      "label": "ทางขนของ / Loading dock",
+      "hint": "Loading & receiving"
+    },
+    "HK_LOC_LOBBY": {
+      "label": "ล็อบบี้",
+      "hint": "จุดต้อนรับแขก"
+    },
+    "HK_LOC_LOBBY_WR_F": {
+      "label": "ห้องน้ำหญิง Lobby",
+      "hint": "ห้องน้ำแขก — โซนล็อบบี้"
+    },
+    "HK_LOC_LOBBY_WR_M": {
+      "label": "ห้องน้ำชาย Lobby",
+      "hint": "ห้องน้ำแขก — โซนล็อบบี้"
+    },
+    "HK_LOC_LOCKER": {
+      "label": "ล็อกเกอร์พนักงาน",
+      "hint": "Staff lockers"
+    },
+    "HK_LOC_LUGGAGE": {
+      "label": "ห้องเก็บกระเป๋า",
+      "hint": "Luggage storage"
+    },
+    "HK_LOC_MEETING": {
+      "label": "ห้องประชุม",
+      "hint": "ห้องประชุม"
+    },
+    "HK_LOC_OFF_ENG": {
+      "label": "ออฟฟิศวิศวกรรม",
+      "hint": "Engineering office"
+    },
+    "HK_LOC_OFF_FIN": {
+      "label": "ออฟฟิศการเงิน",
+      "hint": "Finance office"
+    },
+    "HK_LOC_OFF_FNB": {
+      "label": "ออฟฟิศ F&B",
+      "hint": "Food & Beverage office"
+    },
+    "HK_LOC_OFF_GM": {
+      "label": "ออฟฟิศผู้จัดการ",
+      "hint": "General Manager office"
+    },
+    "HK_LOC_OFF_HK": {
+      "label": "ออฟฟิศแม่บ้าน",
+      "hint": "Housekeeping office"
+    },
+    "HK_LOC_OFF_HR": {
+      "label": "ออฟฟิศ HR",
+      "hint": "Human Resources office"
+    },
+    "HK_LOC_OFF_MT": {
+      "label": "ออฟฟิศช่างซ่อม",
+      "hint": "Maintenance office"
+    },
+    "HK_LOC_OFF_SALES": {
+      "label": "ออฟฟิศฝ่ายขาย",
+      "hint": "Sales & Marketing office"
+    },
+    "HK_LOC_OFF_SEC": {
+      "label": "ออฟฟิศรักษาความปลอดภัย",
+      "hint": "Security office"
+    },
+    "HK_LOC_PARKING": {
+      "label": "ลานจอดรถ",
+      "hint": "ลานจอดรถ"
+    },
+    "HK_LOC_POOL": {
+      "label": "สระน้ำ",
+      "hint": "พื้นที่ริมสระ"
+    },
+    "HK_LOC_POOL_DECK": {
+      "label": "ลานรอบสระ",
+      "hint": "ลานนั่งเล่น"
+    },
+    "HK_LOC_POOL_WR_F": {
+      "label": "ห้องน้ำหญิง ริมสระ",
+      "hint": "ห้องน้ำแขก — โซนสระ"
+    },
+    "HK_LOC_POOL_WR_M": {
+      "label": "ห้องน้ำชาย ริมสระ",
+      "hint": "ห้องน้ำแขก — โซนสระ"
+    },
+    "HK_LOC_PORTICO": {
+      "label": "หลังคาทางเข้า",
+      "hint": "ทางเข้าหลัก"
+    },
+    "HK_LOC_PRE_FUNC": {
+      "label": "Pre-function",
+      "hint": "โซนรอเข้างาน"
+    },
+    "HK_LOC_RESTAURANT": {
+      "label": "ห้องอาหาร",
+      "hint": "จุดบริการอาหาร"
+    },
+    "HK_LOC_ROOFTOP": {
+      "label": "ดาดฟ้า",
+      "hint": "Rooftop"
+    },
+    "HK_LOC_ROOM_SERVICE": {
+      "label": "จุดรับส่งอาหารห้องพัก",
+      "hint": "หลังบ้าน F&B"
+    },
+    "HK_LOC_SALON": {
+      "label": "ซาลอน",
+      "hint": "บริการความงาม"
+    },
+    "HK_LOC_SAUNA": {
+      "label": "ซาวน่า",
+      "hint": "ห้องซาวน่า"
+    },
+    "HK_LOC_SPA": {
+      "label": "สปา",
+      "hint": "โซนสปาและนวด"
+    },
+    "HK_LOC_STAFF_ENT": {
+      "label": "ทางเข้าพนักงาน",
+      "hint": "Staff entrance"
+    },
+    "HK_LOC_STAFF_WR_F": {
+      "label": "ห้องน้ำหญิงพนักงาน",
+      "hint": "ห้องน้ำพนักงาน"
+    },
+    "HK_LOC_STAFF_WR_M": {
+      "label": "ห้องน้ำชายพนักงาน",
+      "hint": "ห้องน้ำพนักงาน"
+    },
+    "HK_LOC_STEWARD": {
+      "label": "Stewarding / ล้างจาน",
+      "hint": "Dish wash & stewarding"
+    },
+    "HK_LOC_STORAGE": {
+      "label": "ห้องเก็บของ",
+      "hint": "General storage"
+    },
+    "HK_LOC_T1_F1_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 1 ตึก 1",
+      "hint": "Corridor ตึก 1 ชั้น 1"
+    },
+    "HK_LOC_T1_F2_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 2 ตึก 1",
+      "hint": "Corridor ตึก 1 ชั้น 2"
+    },
+    "HK_LOC_T1_F3_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 3 ตึก 1",
+      "hint": "Corridor ตึก 1 ชั้น 3"
+    },
+    "HK_LOC_T1_F4_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 4 ตึก 1",
+      "hint": "Corridor ตึก 1 ชั้น 4"
+    },
+    "HK_LOC_T1_F5_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 5 ตึก 1",
+      "hint": "Corridor ตึก 1 ชั้น 5"
+    },
+    "HK_LOC_T1_LIFT_1": {
+      "label": "ลิฟต์ ตัวที่ 1 ตึก 1",
+      "hint": "ลิฟต์โดยสาร ตึก 1"
+    },
+    "HK_LOC_T1_LIFT_2": {
+      "label": "ลิฟต์ ตัวที่ 2 ตึก 1",
+      "hint": "ลิฟต์โดยสาร ตึก 1"
+    },
+    "HK_LOC_T1_LIFT_SVC": {
+      "label": "ลิฟต์แม่บ้าน (Service) ตึก 1",
+      "hint": "ลิฟต์บริการ ตึก 1"
+    },
+    "HK_LOC_T1_STAIR": {
+      "label": "บันไดหลัง ตึก 1",
+      "hint": "Back staircase — Tower 1"
+    },
+    "HK_LOC_T2_F1_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 1 ตึก 2",
+      "hint": "Corridor ตึก 2 ชั้น 1"
+    },
+    "HK_LOC_T2_F2_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 2 ตึก 2",
+      "hint": "Corridor ตึก 2 ชั้น 2"
+    },
+    "HK_LOC_T2_F3_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 3 ตึก 2",
+      "hint": "Corridor ตึก 2 ชั้น 3"
+    },
+    "HK_LOC_T2_F4_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 4 ตึก 2",
+      "hint": "Corridor ตึก 2 ชั้น 4"
+    },
+    "HK_LOC_T2_F5_CORR": {
+      "label": "ทางเดิน (Corridor) ชั้น 5 ตึก 2",
+      "hint": "Corridor ตึก 2 ชั้น 5"
+    },
+    "HK_LOC_T2_LIFT_1": {
+      "label": "ลิฟต์ ตัวที่ 1 ตึก 2",
+      "hint": "ลิฟต์โดยสาร ตึก 2"
+    },
+    "HK_LOC_T2_LIFT_2": {
+      "label": "ลิฟต์ ตัวที่ 2 ตึก 2",
+      "hint": "ลิฟต์โดยสาร ตึก 2"
+    },
+    "HK_LOC_T2_LIFT_SVC": {
+      "label": "ลิฟต์แม่บ้าน (Service) ตึก 2",
+      "hint": "ลิฟต์บริการ ตึก 2"
+    },
+    "HK_LOC_T2_STAIR": {
+      "label": "บันไดหลัง ตึก 2",
+      "hint": "Back staircase — Tower 2"
+    },
+    "HK_LOC_TERRACE": {
+      "label": "ระเบียง",
+      "hint": "ระเบียงกลางแจ้ง"
+    },
+    "HK_LOC_UNIFORM": {
+      "label": "ห้องเครื่องแบบ",
+      "hint": "Uniform room"
+    },
+    "HK_LOC_VIP_LOUNGE": {
+      "label": "VIP Lounge",
+      "hint": "ห้องรับรอง VIP"
+    },
+    "HK_LOC_WALKWAY": {
+      "label": "ทางเดินกลางแจ้ง",
+      "hint": "ทางเดินกลางแจ้ง"
+    },
+    "HK_LOC_WAITING": {
+      "label": "ห้องรอรับแขก",
+      "hint": "โซนที่นั่งรอเช็คอิน / รอรถ"
+    },
+    "HK_LOC_GIFT_SHOP": {
+      "label": "ร้านของที่ระลึก",
+      "hint": "Gift shop & souvenirs"
+    },
+    "HK_LOC_MINI_MART": {
+      "label": "มินิมาร์ทโรงแรม",
+      "hint": "สินค้าสะดวกซื้อ & ของใช้จำเป็น"
+    },
+    "HK_LOC_EXEC_LOUNGE": {
+      "label": "Executive Lounge",
+      "hint": "เลานจ์ผู้บริหาร / ชั้นสูง"
+    },
+    "HK_LOC_CLUB_LOUNGE": {
+      "label": "Club Lounge",
+      "hint": "เลานจ์สมาชิก / Club floor"
+    },
+    "HK_LOC_REST_WR_F": {
+      "label": "ห้องน้ำหญิง โซนร้านอาหาร",
+      "hint": "ห้องน้ำแขก — ใกล้ F&B"
+    },
+    "HK_LOC_REST_WR_M": {
+      "label": "ห้องน้ำชาย โซนร้านอาหาร",
+      "hint": "ห้องน้ำแขก — ใกล้ F&B"
+    },
+    "HK_LOC_SPA_WR_F": {
+      "label": "ห้องน้ำหญิง สปา",
+      "hint": "ห้องน้ำแขก — โซนสปา"
+    },
+    "HK_LOC_SPA_WR_M": {
+      "label": "ห้องน้ำชาย สปา",
+      "hint": "ห้องน้ำแขก — โซนสปา"
+    },
+    "HK_LOC_FIT_WR_F": {
+      "label": "ห้องน้ำหญิง ฟิตเนส",
+      "hint": "ห้องน้ำแขก — โซนฟิตเนส"
+    },
+    "HK_LOC_FIT_WR_M": {
+      "label": "ห้องน้ำชาย ฟิตเนส",
+      "hint": "ห้องน้ำแขก — โซนฟิตเนส"
+    },
+    "HK_LOC_BALL_WR_F": {
+      "label": "ห้องน้ำหญิง บอลรูม",
+      "hint": "ห้องน้ำแขก — โซนงานเลี้ยง"
+    },
+    "HK_LOC_BALL_WR_M": {
+      "label": "ห้องน้ำชาย บอลรูม",
+      "hint": "ห้องน้ำแขก — โซนงานเลี้ยง"
+    },
+    "HK_LOC_TERRACE_REST": {
+      "label": "ร้าน The Terrace",
+      "hint": "All Day Dining & บุฟเฟ่ต์"
+    },
+    "HK_LOC_LOTUS_GARDEN": {
+      "label": "ร้าน Lotus Garden",
+      "hint": "อาหารจีน & ติ่มซำ"
+    },
+    "HK_LOC_RIVERSIDE_GRILL": {
+      "label": "ร้าน Riverside Grill",
+      "hint": "ปิ้งย่าง & สเต็ก"
+    },
+    "HK_LOC_SKY_BAR": {
+      "label": "บาร์ Skyline Lounge",
+      "hint": "ค็อกเทล & วิวเมือง — ล็อบบี้"
+    },
+    "HK_LOC_POOL_BAR": {
+      "label": "บาร์ Pool Bar",
+      "hint": "เครื่องดื่ม & ว่ายน้ำ — ริมสระ"
+    },
+    "HK_LOC_LOBBY_LOUNGE": {
+      "label": "Lobby Lounge",
+      "hint": "เครื่องดื่ม & ขนาว — โถงล็อบบี้"
+    },
+    "HK_LOC_BAKERY": {
+      "label": "เบเกอรี Casa Bloom",
+      "hint": "ขนมปัง & กาแฟพิเศษ"
+    },
+    "HK_LOC_INROOM_PICKUP": {
+      "label": "จุดรับอาหาร In-Room",
+      "hint": "หยิบอาหาร Room Service"
+    },
+    "HK_LOC_TEA_LOUNGE": {
+      "label": "Tea Lounge ชาบู",
+      "hint": "น้ำชา & ขนมบ่าย"
+    },
+    "HK_LOC_POOL_KIDS": {
+      "label": "สระเด็ก",
+      "hint": "สระน้ำสำหรับเด็ก"
+    },
+    "HK_LOC_JACUZZI": {
+      "label": "จากุซซี & สระน้ำร้อน",
+      "hint": "โซนน้ำร้อนริมสระ"
+    },
+    "HK_LOC_POOL_TOWEL": {
+      "label": "จุดผ้าเช็ดตัวสระ",
+      "hint": "เช็คผ้าเช็ดตัว & เก้าอาด"
+    },
+    "HK_LOC_SPA_RECEPT": {
+      "label": "รีเซ็ปชันสปา",
+      "hint": "ต้อนรับ & นัดหมายนวด"
+    },
+    "HK_LOC_YOGA": {
+      "label": "สตูดิโอโยคะ",
+      "hint": "โยคะ & พิลาทิส"
+    },
+    "HK_LOC_GAME_ROOM": {
+      "label": "ห้องเกม & บันไดเล่น",
+      "hint": "โซนพักผ่อนในร่ม"
+    },
+    "HK_LOC_MEET_EMERALD": {
+      "label": "ห้องประชุม Emerald",
+      "hint": "ความจุกลาง — แบ่งห้องได้"
+    },
+    "HK_LOC_MEET_SAPPHIRE": {
+      "label": "ห้องประชุม Sapphire",
+      "hint": "ความจุกลาง"
+    },
+    "HK_LOC_MEET_RUBY": {
+      "label": "ห้องประชุม Ruby",
+      "hint": "ห้องประชุมเล็ก"
+    },
+    "HK_LOC_BOARDROOM": {
+      "label": "ห้องประชุมผู้บริหาร",
+      "hint": "Boardroom"
+    },
+    "HK_LOC_BRIDAL": {
+      "label": "ห้องเตรียมเจ้าบ่าว-เจ้าสาว",
+      "hint": "Bridal suite / prep"
+    },
+    "HK_LOC_VALET": {
+      "label": "จุด Valet",
+      "hint": "รับ-ส่งรถหน้าโรงแรม"
+    },
+    "HK_LOC_TAXI": {
+      "label": "จุดเรียกแท็กซี่",
+      "hint": "แท็กซี่ & รถรับจ้าง"
+    },
+    "HK_LOC_SHUTTLE": {
+      "label": "จุดรถรับส่งโรงแรม",
+      "hint": "Shuttle bus / ทัวร์"
+    },
+    "HK_LOC_EV_CHARGE": {
+      "label": "สถานีชาร์จ EV",
+      "hint": "ที่ชาร์จรถไฟฟ้า"
+    },
+    "HK_LOC_SMOKING": {
+      "label": "โซนสูบบุหรี่ (กลางแจ้ง)",
+      "hint": "ที่สูบบุหรี่ที่กำหนด"
+    },
+    "HK_LOC_FIRST_AID": {
+      "label": "ห้องปฐมพยาบาล",
+      "hint": "First aid / พยาบาลประจำโรงแรม"
+    },
+    "HK_LOC_PRAYER": {
+      "label": "ห้องละหมาด / ห้องสวดมนต์",
+      "hint": "ศาสนสถานภายในโรงแรม"
+    },
+    "HK_LOC_WATER_FEATURE": {
+      "label": "น้ำพุ & ลานกลาง",
+      "hint": "จุดถ่ายรูป / ลานกลางโรงแรม"
+    }
   },
   "common": {
     "loading": "กำลังโหลด…",

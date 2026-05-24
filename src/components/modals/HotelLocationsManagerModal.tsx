@@ -81,7 +81,7 @@ function HotelLocationFormModal({
     setIconEmoji("📍");
     setShowErrors(false);
     setFormError(null);
-  }, [mode, location?.id]);
+  }, [mode, location]);
 
   const excludeId = mode === "edit" && location ? location.id : undefined;
 

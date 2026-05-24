@@ -7,7 +7,7 @@ from typing import Any
 
 from sqlmodel import Session, select
 
-from ..models import Product, Request, RequestItem, StaffOvertimeLog, StockAdjustment, TimelineEvent, User
+from ..models import Product, Request, RequestItem, StockAdjustment, TimelineEvent, User
 from .report_queries import (
     ReportFilters,
     compare_period_range,
@@ -1552,75 +1552,6 @@ def month_over_month_comparison(s: Session, days: int, filters: ReportFilters | 
         "metrics": {k: chg(k) for k in cur},
         "improved": improved,
         "declined": declined,
-    }
-
-
-def employee_overtime_report(
-    s: Session, days: int, filters: ReportFilters | None = None,
-) -> dict[str, Any]:
-    since, until = _report_range(days, filters)
-    users = {u.id: u for u in s.exec(select(User)).all()}
-    rows = s.exec(
-        select(StaffOvertimeLog)
-        .where(StaffOvertimeLog.extended_at >= since)
-        .where(StaffOvertimeLog.extended_at < until)
-        .order_by(StaffOvertimeLog.extended_at.desc()),  # type: ignore[attr-defined]
-    ).all()
-    if filters and filters.assignee_id:
-        rows = [r for r in rows if r.user_id == filters.assignee_id]
-    if filters and filters.department:
-        dept = filters.department
-        rows = [
-            r for r in rows
-            if users.get(r.user_id) and users[r.user_id].department == dept
-        ]
-    sessions_by_user: Counter[int] = Counter()
-    hours_by_user: defaultdict[float] = defaultdict(float)
-    total_hours_all = 0.0
-    for r in rows:
-        sessions_by_user[r.user_id] += 1
-        hours_by_user[r.user_id] += r.hours
-        total_hours_all += r.hours
-    staff_summary = [
-        {
-            "user_id": uid,
-            "user_name": users[uid].name if uid in users else f"#{uid}",
-            "job_title": users[uid].job_title if uid in users else None,
-            "department": users[uid].department if uid in users else None,
-            "ot_sessions": sessions_by_user[uid],
-            "total_hours": round(hours_by_user[uid], 1),
-        }
-        for uid in sorted(
-            sessions_by_user.keys(),
-            key=lambda i: (-sessions_by_user[i], -hours_by_user[i]),
-        )
-    ]
-    table_limit = _report_table_limit(filters)
-    table_rows = rows if table_limit is None else rows[:table_limit]
-    entries = []
-    for r in table_rows:
-        u = users.get(r.user_id)
-        entries.append({
-            "id": r.id,
-            "user_id": r.user_id,
-            "user_name": u.name if u else f"#{r.user_id}",
-            "job_title": u.job_title if u else None,
-            "department": u.department if u else None,
-            "extended_at": r.extended_at.isoformat(),
-            "hours": r.hours,
-            "shift_end_at_extension": r.shift_end_at_extension,
-            "ot_until_after": r.ot_until_after.isoformat(),
-        })
-    return {
-        **_period_meta(days, filters),
-        "total_sessions": len(rows),
-        "total_hours": round(total_hours_all, 1),
-        "unique_staff": len(sessions_by_user),
-        "entries": entries,
-        "entries_total": len(rows),
-        "row_limit": len(entries),
-        "row_limit_capped": table_limit is not None,
-        "staff_summary": staff_summary,
     }
 
 

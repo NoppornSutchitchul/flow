@@ -1,4 +1,4 @@
-"""FastAPI entrypoint for HotelOps."""
+"""FastAPI entrypoint for Flow."""
 from __future__ import annotations
 
 import asyncio
@@ -159,7 +159,7 @@ async def lifespan(_app: FastAPI):
         pass
 
 
-app = FastAPI(title="HotelOps API", lifespan=lifespan)
+app = FastAPI(title="Flow API", lifespan=lifespan)
 app.add_middleware(GZipMiddleware, minimum_size=500)
 app.add_middleware(
     CORSMiddleware,

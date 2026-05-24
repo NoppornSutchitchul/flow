@@ -115,16 +115,7 @@ export function ScheduledHoldEditor({
       setDraft(nextBaseline);
       setItemSearch("");
     }
-  }, [
-    data.id,
-    data.updated_at,
-    data.room,
-    data.delivery_method,
-    data.items,
-    data.schedule_mode,
-    data.scheduled_at,
-    editing,
-  ]);
+  }, [data, editing]);
 
   const changed = !draftsEqual(draft, baseline);
   const roomValid = isValidQuickRoomLocation(draft.room.trim(), hotelCodes, guestRooms);

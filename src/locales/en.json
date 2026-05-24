@@ -668,8 +668,7 @@
       "dnd_incident_report": "DND incident report",
       "month_over_month_comparison": "Month-over-month comparison",
       "service_only_room_requests": "Guest service requests",
-      "stock_only_room_requests": "Guest stock requests",
-      "employee_overtime": "Employee overtime (OT)"
+      "stock_only_room_requests": "Guest stock requests"
     },
     "no_data": "No data for the selected period",
     "table": {
@@ -747,18 +746,6 @@
       "dept_summary_table": "By department",
       "dept_summary_table_desc": "Completed jobs and on-time rate per department",
       "workload_mean_desc": "Compared to team average — red = above normal load",
-      "ot_sessions": "OT extensions",
-      "ot_total_hours": "Total OT hours",
-      "ot_log_title": "OT extension log",
-      "ot_log_desc": "Each +1 hr OT tap in the period (click the OT extensions card to jump here)",
-      "ot_log_limit_note": "Table shows {{shown}} of {{total}} taps — KPI cards count the full period. Set row limit to “Show all” to load every row.",
-      "ot_summary_title": "By staff",
-      "ot_col_staff": "Staff",
-      "ot_col_position": "Position",
-      "ot_col_department": "Department",
-      "ot_col_when": "When",
-      "ot_col_hours": "Hrs",
-      "ot_col_until": "Work until",
       "top_consumed_bars": "Top 10 consumed products",
       "top_consumed_desc": "Units used in selected period",
       "reassign_empty_desc": "No reassignments — auto-assign is stable",
@@ -923,7 +910,6 @@
       "unique_rooms_stock": "Rooms with product requests",
       "product_name_col": "Product",
       "event": "Event",
-      "date": "Date",
       "lifecycle_stage": {
         "created": "Request created",
         "assigned": "Assigned",
@@ -957,7 +943,6 @@
         "note": "Note"
       },
       "qty": "Qty",
-      "reason": "Reason",
       "user": "User",
       "when": "When",
       "req_number": "Req no.",
@@ -1306,8 +1291,6 @@
     "form_error_username_short": "Username must be at least 2 characters",
     "form_error_username_taken": "This username is already in use",
     "form_error_create_failed": "Could not create user",
-    "can_request_ot": "Can request overtime",
-    "can_request_ot_hint": "Turn off for managers and assistant managers.",
     "role_group_leadership": "Leadership & system",
     "role_group_front": "Front desk",
     "role_group_hk": "Housekeeping",
@@ -1399,52 +1382,6 @@
       "public_area_housekeeper": "Public Area Housekeeper",
       "maintenance_technician": "Maintenance Technician"
     }
-  },
-  "shift": {
-    "setup_title": "Set your work shift",
-    "setup_intro": "Work is routed only to logged-in staff within their shift. Enter today’s start and end times.",
-    "setup_save": "Save shift",
-    "setup_error": "Could not save shift. Check the times.",
-    "settings_title": "Work shift",
-    "settings_intro": "Your start and end times. New assignments stop before shift end so you can clear your queue.",
-    "start": "Start",
-    "end": "End",
-    "policy_title": "Shift assignment policy",
-    "policy_intro": "Hotel default shift length and wind-down — admin only.",
-    "default_start": "Default shift start time",
-    "default_duration_hours": "Default shift length (hours)",
-    "policy_preview": "Default shift preview: {{start}} – {{end}} ({{hours}} hrs)",
-    "setup_default_hint": "Hotel default: {{hours}}-hour shift (you can adjust before saving)",
-    "staff_policy_note": "Hotel standard {{hours}}-hr shift · no new work in the last {{minutes}} min",
-    "wind_down_minutes": "Stop new work before end (minutes)",
-    "wind_down_note": "No new assignments in the last {{minutes}} minutes of your shift unless you extend OT.",
-    "status_heading": "Current status",
-    "status_on_duty": "On shift",
-    "status_new_work": "New assignments",
-    "status_until": "Until {{time}}",
-    "status_accepts_work": "Accepting new work",
-    "status_cutoff": "New work until",
-    "status_work_until": "New work until {{time}}",
-    "status_not_accepting_work": "Not accepting new work",
-    "status_login_for_assignments": "Log in to accept new work",
-    "status_yes": "Yes",
-    "status_no": "No",
-    "ot_extend_button": "Request OT",
-    "ot_request_button": "Request OT {{slot}}",
-    "ot_request_hint": "Request manager approval for OT {{slot}} (counts after shift end)",
-    "ot_extend_hint": "Request manager approval for the next OT hour after shift end",
-    "ot_active_until": "OT until {{time}}",
-    "ot_pending_manager": "Waiting for manager — OT {{slot}}",
-    "locked_note": "Shift times are locked (1 hour after setup). Request OT in the hour before each OT slot.",
-    "edit_until": "You can edit shift times until {{time}}",
-    "ot_cooldown_until": "You can request OT again after {{time}}",
-    "ot_not_in_window": "OT requests are only available in the hour before the next OT slot",
-    "ot_not_allowed": "Your account is not allowed to request overtime",
-    "manager_ot_panel_title": "OT approval requests",
-    "manager_ot_slot": "OT slot {{slot}}",
-    "manager_ot_requested_at": "Requested {{time}}",
-    "manager_ot_approve": "Approve",
-    "manager_ot_reject": "Reject"
   },
   "settings": {
     "title": "Settings",
@@ -1760,127 +1697,490 @@
     "connecting": "Connecting door · {{peer}}"
   },
   "hotelLocations": {
-    "HK_LOC_BALLROOM": { "label": "Ballroom", "hint": "Large banquet hall" },
-    "HK_LOC_BANQUET_PREP": { "label": "Banquet prep kitchen", "hint": "Banquet preparation" },
-    "HK_LOC_BAR": { "label": "Bar", "hint": "Beverage outlet" },
-    "HK_LOC_BELL_DESK": { "label": "Bell desk", "hint": "Luggage porter desk" },
-    "HK_LOC_BUSINESS": { "label": "Business center", "hint": "Business services" },
-    "HK_LOC_CAFE": { "label": "Café", "hint": "Café & light dining" },
-    "HK_LOC_CANTEEN": { "label": "Staff canteen", "hint": "Employee dining" },
-    "HK_LOC_CONCIERGE": { "label": "Concierge desk", "hint": "Concierge services" },
-    "HK_LOC_DRIVEWAY": { "label": "Driveway", "hint": "Vehicle service route" },
-    "HK_LOC_EVENT": { "label": "Event space", "hint": "Event zone" },
-    "HK_LOC_FITNESS": { "label": "Fitness center", "hint": "Gym" },
-    "HK_LOC_FRONT_DESK": { "label": "Front desk counter", "hint": "Reception department" },
-    "HK_LOC_FRONT_OFFICE": { "label": "Front office", "hint": "Front Office back office" },
-    "HK_LOC_GARBAGE": { "label": "Garbage room", "hint": "Trash / garbage room" },
-    "HK_LOC_GARDEN": { "label": "Garden", "hint": "Garden grounds" },
-    "HK_LOC_HALL": { "label": "Lobby hall", "hint": "Main lobby corridor" },
-    "HK_LOC_HK_PANTRY_T1": { "label": "HK pantry — Tower 1", "hint": "Housekeeping pantry" },
-    "HK_LOC_HK_PANTRY_T2": { "label": "HK pantry — Tower 2", "hint": "Housekeeping pantry" },
-    "HK_LOC_KIDS": { "label": "Kids club", "hint": "Children's club room" },
-    "HK_LOC_KITCH_COLD": { "label": "Cold kitchen", "hint": "Prep & cold kitchen" },
-    "HK_LOC_KITCH_HOT": { "label": "Hot kitchen", "hint": "Main production kitchen" },
-    "HK_LOC_LAUNDRY": { "label": "Laundry", "hint": "Hotel laundry" },
-    "HK_LOC_LIFT": { "label": "Elevator (general)", "hint": "Lift lobby — tower unspecified" },
-    "HK_LOC_LINEN": { "label": "Linen room", "hint": "Linen storage" },
-    "HK_LOC_LOADING": { "label": "Loading dock", "hint": "Loading & receiving" },
-    "HK_LOC_LOBBY": { "label": "Lobby", "hint": "Guest reception area" },
-    "HK_LOC_LOBBY_WR_F": { "label": "Lobby restroom — women", "hint": "Guest restroom — lobby zone" },
-    "HK_LOC_LOBBY_WR_M": { "label": "Lobby restroom — men", "hint": "Guest restroom — lobby zone" },
-    "HK_LOC_LOCKER": { "label": "Staff lockers", "hint": "Employee locker room" },
-    "HK_LOC_LUGGAGE": { "label": "Luggage storage", "hint": "Baggage hold room" },
-    "HK_LOC_MEETING": { "label": "Meeting room", "hint": "Meeting space" },
-    "HK_LOC_OFF_ENG": { "label": "Engineering office", "hint": "Engineering department office" },
-    "HK_LOC_OFF_FIN": { "label": "Finance office", "hint": "Finance department office" },
-    "HK_LOC_OFF_FNB": { "label": "F&B office", "hint": "Food & Beverage office" },
-    "HK_LOC_OFF_GM": { "label": "General Manager office", "hint": "GM office" },
-    "HK_LOC_OFF_HK": { "label": "Housekeeping office", "hint": "HK department office" },
-    "HK_LOC_OFF_HR": { "label": "HR office", "hint": "Human Resources office" },
-    "HK_LOC_OFF_MT": { "label": "Maintenance office", "hint": "Engineering / maintenance office" },
-    "HK_LOC_OFF_SALES": { "label": "Sales office", "hint": "Sales & Marketing office" },
-    "HK_LOC_OFF_SEC": { "label": "Security office", "hint": "Security department office" },
-    "HK_LOC_PARKING": { "label": "Parking lot", "hint": "Car park" },
-    "HK_LOC_POOL": { "label": "Pool", "hint": "Pool area" },
-    "HK_LOC_POOL_DECK": { "label": "Pool deck", "hint": "Pool lounge deck" },
-    "HK_LOC_POOL_WR_F": { "label": "Pool restroom — women", "hint": "Guest restroom — pool zone" },
-    "HK_LOC_POOL_WR_M": { "label": "Pool restroom — men", "hint": "Guest restroom — pool zone" },
-    "HK_LOC_PORTICO": { "label": "Porte-cochère", "hint": "Main entrance canopy" },
-    "HK_LOC_PRE_FUNC": { "label": "Pre-function area", "hint": "Pre-event foyer" },
-    "HK_LOC_RESTAURANT": { "label": "Restaurant", "hint": "Main dining outlet" },
-    "HK_LOC_ROOFTOP": { "label": "Rooftop", "hint": "Rooftop area" },
-    "HK_LOC_ROOM_SERVICE": { "label": "In-room dining staging", "hint": "F&B back-of-house" },
-    "HK_LOC_SALON": { "label": "Salon", "hint": "Beauty salon" },
-    "HK_LOC_SAUNA": { "label": "Sauna", "hint": "Sauna room" },
-    "HK_LOC_SPA": { "label": "Spa", "hint": "Spa & massage zone" },
-    "HK_LOC_STAFF_ENT": { "label": "Staff entrance", "hint": "Employee entrance" },
-    "HK_LOC_STAFF_WR_F": { "label": "Staff restroom — women", "hint": "Employee restroom" },
-    "HK_LOC_STAFF_WR_M": { "label": "Staff restroom — men", "hint": "Employee restroom" },
-    "HK_LOC_STEWARD": { "label": "Stewarding", "hint": "Dish wash & stewarding" },
-    "HK_LOC_STORAGE": { "label": "Storage room", "hint": "General storage" },
-    "HK_LOC_T1_F1_CORR": { "label": "Corridor — Tower 1 Floor 1", "hint": "Guest floor corridor" },
-    "HK_LOC_T1_F2_CORR": { "label": "Corridor — Tower 1 Floor 2", "hint": "Guest floor corridor" },
-    "HK_LOC_T1_F3_CORR": { "label": "Corridor — Tower 1 Floor 3", "hint": "Guest floor corridor" },
-    "HK_LOC_T1_F4_CORR": { "label": "Corridor — Tower 1 Floor 4", "hint": "Guest floor corridor" },
-    "HK_LOC_T1_F5_CORR": { "label": "Corridor — Tower 1 Floor 5", "hint": "Guest floor corridor" },
-    "HK_LOC_T1_LIFT_1": { "label": "Elevator 1 — Tower 1", "hint": "Passenger elevator" },
-    "HK_LOC_T1_LIFT_2": { "label": "Elevator 2 — Tower 1", "hint": "Passenger elevator" },
-    "HK_LOC_T1_LIFT_SVC": { "label": "Service elevator — Tower 1", "hint": "Housekeeping / service lift" },
-    "HK_LOC_T1_STAIR": { "label": "Back staircase — Tower 1", "hint": "Service staircase" },
-    "HK_LOC_T2_F1_CORR": { "label": "Corridor — Tower 2 Floor 1", "hint": "Guest floor corridor" },
-    "HK_LOC_T2_F2_CORR": { "label": "Corridor — Tower 2 Floor 2", "hint": "Guest floor corridor" },
-    "HK_LOC_T2_F3_CORR": { "label": "Corridor — Tower 2 Floor 3", "hint": "Guest floor corridor" },
-    "HK_LOC_T2_F4_CORR": { "label": "Corridor — Tower 2 Floor 4", "hint": "Guest floor corridor" },
-    "HK_LOC_T2_F5_CORR": { "label": "Corridor — Tower 2 Floor 5", "hint": "Guest floor corridor" },
-    "HK_LOC_T2_LIFT_1": { "label": "Elevator 1 — Tower 2", "hint": "Passenger elevator" },
-    "HK_LOC_T2_LIFT_2": { "label": "Elevator 2 — Tower 2", "hint": "Passenger elevator" },
-    "HK_LOC_T2_LIFT_SVC": { "label": "Service elevator — Tower 2", "hint": "Housekeeping / service lift" },
-    "HK_LOC_T2_STAIR": { "label": "Back staircase — Tower 2", "hint": "Service staircase" },
-    "HK_LOC_TERRACE": { "label": "Terrace", "hint": "Outdoor terrace" },
-    "HK_LOC_UNIFORM": { "label": "Uniform room", "hint": "Staff uniform storage" },
-    "HK_LOC_VIP_LOUNGE": { "label": "VIP lounge", "hint": "VIP reception lounge" },
-    "HK_LOC_WALKWAY": { "label": "Outdoor walkway", "hint": "Outdoor pathway" },
-    "HK_LOC_WAITING": { "label": "Guest waiting lounge", "hint": "Check-in / transport waiting area" },
-    "HK_LOC_GIFT_SHOP": { "label": "Gift shop", "hint": "Souvenirs & gifts" },
-    "HK_LOC_MINI_MART": { "label": "Hotel mini mart", "hint": "Convenience items" },
-    "HK_LOC_EXEC_LOUNGE": { "label": "Executive lounge", "hint": "Executive / upper-floor lounge" },
-    "HK_LOC_CLUB_LOUNGE": { "label": "Club lounge", "hint": "Club-floor lounge" },
-    "HK_LOC_REST_WR_F": { "label": "Restroom — women (F&B)", "hint": "Guest restroom near dining" },
-    "HK_LOC_REST_WR_M": { "label": "Restroom — men (F&B)", "hint": "Guest restroom near dining" },
-    "HK_LOC_SPA_WR_F": { "label": "Restroom — women (spa)", "hint": "Guest restroom — spa zone" },
-    "HK_LOC_SPA_WR_M": { "label": "Restroom — men (spa)", "hint": "Guest restroom — spa zone" },
-    "HK_LOC_FIT_WR_F": { "label": "Restroom — women (fitness)", "hint": "Guest restroom — gym" },
-    "HK_LOC_FIT_WR_M": { "label": "Restroom — men (fitness)", "hint": "Guest restroom — gym" },
-    "HK_LOC_BALL_WR_F": { "label": "Restroom — women (ballroom)", "hint": "Guest restroom — events" },
-    "HK_LOC_BALL_WR_M": { "label": "Restroom — men (ballroom)", "hint": "Guest restroom — events" },
-    "HK_LOC_TERRACE_REST": { "label": "The Terrace restaurant", "hint": "All-day dining & buffet" },
-    "HK_LOC_LOTUS_GARDEN": { "label": "Lotus Garden", "hint": "Chinese cuisine & dim sum" },
-    "HK_LOC_RIVERSIDE_GRILL": { "label": "Riverside Grill", "hint": "Grill & steakhouse" },
-    "HK_LOC_SKY_BAR": { "label": "Skyline Lounge bar", "hint": "Cocktails — lobby level" },
-    "HK_LOC_POOL_BAR": { "label": "Pool Bar", "hint": "Poolside beverages" },
-    "HK_LOC_LOBBY_LOUNGE": { "label": "Lobby Lounge", "hint": "Drinks & light bites" },
-    "HK_LOC_BAKERY": { "label": "Casa Bloom bakery", "hint": "Pastries & specialty coffee" },
-    "HK_LOC_INROOM_PICKUP": { "label": "In-room dining pickup", "hint": "Room service collection point" },
-    "HK_LOC_TEA_LOUNGE": { "label": "Tea Lounge", "hint": "Afternoon tea" },
-    "HK_LOC_POOL_KIDS": { "label": "Kids pool", "hint": "Children's swimming pool" },
-    "HK_LOC_JACUZZI": { "label": "Jacuzzi & hot pool", "hint": "Hot tub area" },
-    "HK_LOC_POOL_TOWEL": { "label": "Pool towel station", "hint": "Towels & loungers" },
-    "HK_LOC_SPA_RECEPT": { "label": "Spa reception", "hint": "Spa check-in & appointments" },
-    "HK_LOC_YOGA": { "label": "Yoga studio", "hint": "Yoga & pilates" },
-    "HK_LOC_GAME_ROOM": { "label": "Game room", "hint": "Indoor recreation" },
-    "HK_LOC_MEET_EMERALD": { "label": "Emerald meeting room", "hint": "Mid-size divisible room" },
-    "HK_LOC_MEET_SAPPHIRE": { "label": "Sapphire meeting room", "hint": "Mid-size meeting room" },
-    "HK_LOC_MEET_RUBY": { "label": "Ruby meeting room", "hint": "Small meeting room" },
-    "HK_LOC_BOARDROOM": { "label": "Boardroom", "hint": "Executive boardroom" },
-    "HK_LOC_BRIDAL": { "label": "Bridal prep suite", "hint": "Wedding preparation room" },
-    "HK_LOC_VALET": { "label": "Valet", "hint": "Vehicle drop-off" },
-    "HK_LOC_TAXI": { "label": "Taxi stand", "hint": "Taxi & hire cars" },
-    "HK_LOC_SHUTTLE": { "label": "Shuttle stop", "hint": "Hotel shuttle / tours" },
-    "HK_LOC_EV_CHARGE": { "label": "EV charging", "hint": "Electric vehicle charging" },
-    "HK_LOC_SMOKING": { "label": "Designated smoking area", "hint": "Outdoor smoking zone" },
-    "HK_LOC_FIRST_AID": { "label": "First aid room", "hint": "On-site first aid" },
-    "HK_LOC_PRAYER": { "label": "Prayer room", "hint": "Prayer / meditation room" },
-    "HK_LOC_WATER_FEATURE": { "label": "Central courtyard", "hint": "Fountain & central plaza" }
+    "HK_LOC_BALLROOM": {
+      "label": "Ballroom",
+      "hint": "Large banquet hall"
+    },
+    "HK_LOC_BANQUET_PREP": {
+      "label": "Banquet prep kitchen",
+      "hint": "Banquet preparation"
+    },
+    "HK_LOC_BAR": {
+      "label": "Bar",
+      "hint": "Beverage outlet"
+    },
+    "HK_LOC_BELL_DESK": {
+      "label": "Bell desk",
+      "hint": "Luggage porter desk"
+    },
+    "HK_LOC_BUSINESS": {
+      "label": "Business center",
+      "hint": "Business services"
+    },
+    "HK_LOC_CAFE": {
+      "label": "Café",
+      "hint": "Café & light dining"
+    },
+    "HK_LOC_CANTEEN": {
+      "label": "Staff canteen",
+      "hint": "Employee dining"
+    },
+    "HK_LOC_CONCIERGE": {
+      "label": "Concierge desk",
+      "hint": "Concierge services"
+    },
+    "HK_LOC_DRIVEWAY": {
+      "label": "Driveway",
+      "hint": "Vehicle service route"
+    },
+    "HK_LOC_EVENT": {
+      "label": "Event space",
+      "hint": "Event zone"
+    },
+    "HK_LOC_FITNESS": {
+      "label": "Fitness center",
+      "hint": "Gym"
+    },
+    "HK_LOC_FRONT_DESK": {
+      "label": "Front desk counter",
+      "hint": "Reception department"
+    },
+    "HK_LOC_FRONT_OFFICE": {
+      "label": "Front office",
+      "hint": "Front Office back office"
+    },
+    "HK_LOC_GARBAGE": {
+      "label": "Garbage room",
+      "hint": "Trash / garbage room"
+    },
+    "HK_LOC_GARDEN": {
+      "label": "Garden",
+      "hint": "Garden grounds"
+    },
+    "HK_LOC_HALL": {
+      "label": "Lobby hall",
+      "hint": "Main lobby corridor"
+    },
+    "HK_LOC_HK_PANTRY_T1": {
+      "label": "HK pantry — Tower 1",
+      "hint": "Housekeeping pantry"
+    },
+    "HK_LOC_HK_PANTRY_T2": {
+      "label": "HK pantry — Tower 2",
+      "hint": "Housekeeping pantry"
+    },
+    "HK_LOC_KIDS": {
+      "label": "Kids club",
+      "hint": "Children's club room"
+    },
+    "HK_LOC_KITCH_COLD": {
+      "label": "Cold kitchen",
+      "hint": "Prep & cold kitchen"
+    },
+    "HK_LOC_KITCH_HOT": {
+      "label": "Hot kitchen",
+      "hint": "Main production kitchen"
+    },
+    "HK_LOC_LAUNDRY": {
+      "label": "Laundry",
+      "hint": "Hotel laundry"
+    },
+    "HK_LOC_LIFT": {
+      "label": "Elevator (general)",
+      "hint": "Lift lobby — tower unspecified"
+    },
+    "HK_LOC_LINEN": {
+      "label": "Linen room",
+      "hint": "Linen storage"
+    },
+    "HK_LOC_LOADING": {
+      "label": "Loading dock",
+      "hint": "Loading & receiving"
+    },
+    "HK_LOC_LOBBY": {
+      "label": "Lobby",
+      "hint": "Guest reception area"
+    },
+    "HK_LOC_LOBBY_WR_F": {
+      "label": "Lobby restroom — women",
+      "hint": "Guest restroom — lobby zone"
+    },
+    "HK_LOC_LOBBY_WR_M": {
+      "label": "Lobby restroom — men",
+      "hint": "Guest restroom — lobby zone"
+    },
+    "HK_LOC_LOCKER": {
+      "label": "Staff lockers",
+      "hint": "Employee locker room"
+    },
+    "HK_LOC_LUGGAGE": {
+      "label": "Luggage storage",
+      "hint": "Baggage hold room"
+    },
+    "HK_LOC_MEETING": {
+      "label": "Meeting room",
+      "hint": "Meeting space"
+    },
+    "HK_LOC_OFF_ENG": {
+      "label": "Engineering office",
+      "hint": "Engineering department office"
+    },
+    "HK_LOC_OFF_FIN": {
+      "label": "Finance office",
+      "hint": "Finance department office"
+    },
+    "HK_LOC_OFF_FNB": {
+      "label": "F&B office",
+      "hint": "Food & Beverage office"
+    },
+    "HK_LOC_OFF_GM": {
+      "label": "General Manager office",
+      "hint": "GM office"
+    },
+    "HK_LOC_OFF_HK": {
+      "label": "Housekeeping office",
+      "hint": "HK department office"
+    },
+    "HK_LOC_OFF_HR": {
+      "label": "HR office",
+      "hint": "Human Resources office"
+    },
+    "HK_LOC_OFF_MT": {
+      "label": "Maintenance office",
+      "hint": "Engineering / maintenance office"
+    },
+    "HK_LOC_OFF_SALES": {
+      "label": "Sales office",
+      "hint": "Sales & Marketing office"
+    },
+    "HK_LOC_OFF_SEC": {
+      "label": "Security office",
+      "hint": "Security department office"
+    },
+    "HK_LOC_PARKING": {
+      "label": "Parking lot",
+      "hint": "Car park"
+    },
+    "HK_LOC_POOL": {
+      "label": "Pool",
+      "hint": "Pool area"
+    },
+    "HK_LOC_POOL_DECK": {
+      "label": "Pool deck",
+      "hint": "Pool lounge deck"
+    },
+    "HK_LOC_POOL_WR_F": {
+      "label": "Pool restroom — women",
+      "hint": "Guest restroom — pool zone"
+    },
+    "HK_LOC_POOL_WR_M": {
+      "label": "Pool restroom — men",
+      "hint": "Guest restroom — pool zone"
+    },
+    "HK_LOC_PORTICO": {
+      "label": "Porte-cochère",
+      "hint": "Main entrance canopy"
+    },
+    "HK_LOC_PRE_FUNC": {
+      "label": "Pre-function area",
+      "hint": "Pre-event foyer"
+    },
+    "HK_LOC_RESTAURANT": {
+      "label": "Restaurant",
+      "hint": "Main dining outlet"
+    },
+    "HK_LOC_ROOFTOP": {
+      "label": "Rooftop",
+      "hint": "Rooftop area"
+    },
+    "HK_LOC_ROOM_SERVICE": {
+      "label": "In-room dining staging",
+      "hint": "F&B back-of-house"
+    },
+    "HK_LOC_SALON": {
+      "label": "Salon",
+      "hint": "Beauty salon"
+    },
+    "HK_LOC_SAUNA": {
+      "label": "Sauna",
+      "hint": "Sauna room"
+    },
+    "HK_LOC_SPA": {
+      "label": "Spa",
+      "hint": "Spa & massage zone"
+    },
+    "HK_LOC_STAFF_ENT": {
+      "label": "Staff entrance",
+      "hint": "Employee entrance"
+    },
+    "HK_LOC_STAFF_WR_F": {
+      "label": "Staff restroom — women",
+      "hint": "Employee restroom"
+    },
+    "HK_LOC_STAFF_WR_M": {
+      "label": "Staff restroom — men",
+      "hint": "Employee restroom"
+    },
+    "HK_LOC_STEWARD": {
+      "label": "Stewarding",
+      "hint": "Dish wash & stewarding"
+    },
+    "HK_LOC_STORAGE": {
+      "label": "Storage room",
+      "hint": "General storage"
+    },
+    "HK_LOC_T1_F1_CORR": {
+      "label": "Corridor — Tower 1 Floor 1",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T1_F2_CORR": {
+      "label": "Corridor — Tower 1 Floor 2",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T1_F3_CORR": {
+      "label": "Corridor — Tower 1 Floor 3",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T1_F4_CORR": {
+      "label": "Corridor — Tower 1 Floor 4",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T1_F5_CORR": {
+      "label": "Corridor — Tower 1 Floor 5",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T1_LIFT_1": {
+      "label": "Elevator 1 — Tower 1",
+      "hint": "Passenger elevator"
+    },
+    "HK_LOC_T1_LIFT_2": {
+      "label": "Elevator 2 — Tower 1",
+      "hint": "Passenger elevator"
+    },
+    "HK_LOC_T1_LIFT_SVC": {
+      "label": "Service elevator — Tower 1",
+      "hint": "Housekeeping / service lift"
+    },
+    "HK_LOC_T1_STAIR": {
+      "label": "Back staircase — Tower 1",
+      "hint": "Service staircase"
+    },
+    "HK_LOC_T2_F1_CORR": {
+      "label": "Corridor — Tower 2 Floor 1",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T2_F2_CORR": {
+      "label": "Corridor — Tower 2 Floor 2",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T2_F3_CORR": {
+      "label": "Corridor — Tower 2 Floor 3",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T2_F4_CORR": {
+      "label": "Corridor — Tower 2 Floor 4",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T2_F5_CORR": {
+      "label": "Corridor — Tower 2 Floor 5",
+      "hint": "Guest floor corridor"
+    },
+    "HK_LOC_T2_LIFT_1": {
+      "label": "Elevator 1 — Tower 2",
+      "hint": "Passenger elevator"
+    },
+    "HK_LOC_T2_LIFT_2": {
+      "label": "Elevator 2 — Tower 2",
+      "hint": "Passenger elevator"
+    },
+    "HK_LOC_T2_LIFT_SVC": {
+      "label": "Service elevator — Tower 2",
+      "hint": "Housekeeping / service lift"
+    },
+    "HK_LOC_T2_STAIR": {
+      "label": "Back staircase — Tower 2",
+      "hint": "Service staircase"
+    },
+    "HK_LOC_TERRACE": {
+      "label": "Terrace",
+      "hint": "Outdoor terrace"
+    },
+    "HK_LOC_UNIFORM": {
+      "label": "Uniform room",
+      "hint": "Staff uniform storage"
+    },
+    "HK_LOC_VIP_LOUNGE": {
+      "label": "VIP lounge",
+      "hint": "VIP reception lounge"
+    },
+    "HK_LOC_WALKWAY": {
+      "label": "Outdoor walkway",
+      "hint": "Outdoor pathway"
+    },
+    "HK_LOC_WAITING": {
+      "label": "Guest waiting lounge",
+      "hint": "Check-in / transport waiting area"
+    },
+    "HK_LOC_GIFT_SHOP": {
+      "label": "Gift shop",
+      "hint": "Souvenirs & gifts"
+    },
+    "HK_LOC_MINI_MART": {
+      "label": "Hotel mini mart",
+      "hint": "Convenience items"
+    },
+    "HK_LOC_EXEC_LOUNGE": {
+      "label": "Executive lounge",
+      "hint": "Executive / upper-floor lounge"
+    },
+    "HK_LOC_CLUB_LOUNGE": {
+      "label": "Club lounge",
+      "hint": "Club-floor lounge"
+    },
+    "HK_LOC_REST_WR_F": {
+      "label": "Restroom — women (F&B)",
+      "hint": "Guest restroom near dining"
+    },
+    "HK_LOC_REST_WR_M": {
+      "label": "Restroom — men (F&B)",
+      "hint": "Guest restroom near dining"
+    },
+    "HK_LOC_SPA_WR_F": {
+      "label": "Restroom — women (spa)",
+      "hint": "Guest restroom — spa zone"
+    },
+    "HK_LOC_SPA_WR_M": {
+      "label": "Restroom — men (spa)",
+      "hint": "Guest restroom — spa zone"
+    },
+    "HK_LOC_FIT_WR_F": {
+      "label": "Restroom — women (fitness)",
+      "hint": "Guest restroom — gym"
+    },
+    "HK_LOC_FIT_WR_M": {
+      "label": "Restroom — men (fitness)",
+      "hint": "Guest restroom — gym"
+    },
+    "HK_LOC_BALL_WR_F": {
+      "label": "Restroom — women (ballroom)",
+      "hint": "Guest restroom — events"
+    },
+    "HK_LOC_BALL_WR_M": {
+      "label": "Restroom — men (ballroom)",
+      "hint": "Guest restroom — events"
+    },
+    "HK_LOC_TERRACE_REST": {
+      "label": "The Terrace restaurant",
+      "hint": "All-day dining & buffet"
+    },
+    "HK_LOC_LOTUS_GARDEN": {
+      "label": "Lotus Garden",
+      "hint": "Chinese cuisine & dim sum"
+    },
+    "HK_LOC_RIVERSIDE_GRILL": {
+      "label": "Riverside Grill",
+      "hint": "Grill & steakhouse"
+    },
+    "HK_LOC_SKY_BAR": {
+      "label": "Skyline Lounge bar",
+      "hint": "Cocktails — lobby level"
+    },
+    "HK_LOC_POOL_BAR": {
+      "label": "Pool Bar",
+      "hint": "Poolside beverages"
+    },
+    "HK_LOC_LOBBY_LOUNGE": {
+      "label": "Lobby Lounge",
+      "hint": "Drinks & light bites"
+    },
+    "HK_LOC_BAKERY": {
+      "label": "Casa Bloom bakery",
+      "hint": "Pastries & specialty coffee"
+    },
+    "HK_LOC_INROOM_PICKUP": {
+      "label": "In-room dining pickup",
+      "hint": "Room service collection point"
+    },
+    "HK_LOC_TEA_LOUNGE": {
+      "label": "Tea Lounge",
+      "hint": "Afternoon tea"
+    },
+    "HK_LOC_POOL_KIDS": {
+      "label": "Kids pool",
+      "hint": "Children's swimming pool"
+    },
+    "HK_LOC_JACUZZI": {
+      "label": "Jacuzzi & hot pool",
+      "hint": "Hot tub area"
+    },
+    "HK_LOC_POOL_TOWEL": {
+      "label": "Pool towel station",
+      "hint": "Towels & loungers"
+    },
+    "HK_LOC_SPA_RECEPT": {
+      "label": "Spa reception",
+      "hint": "Spa check-in & appointments"
+    },
+    "HK_LOC_YOGA": {
+      "label": "Yoga studio",
+      "hint": "Yoga & pilates"
+    },
+    "HK_LOC_GAME_ROOM": {
+      "label": "Game room",
+      "hint": "Indoor recreation"
+    },
+    "HK_LOC_MEET_EMERALD": {
+      "label": "Emerald meeting room",
+      "hint": "Mid-size divisible room"
+    },
+    "HK_LOC_MEET_SAPPHIRE": {
+      "label": "Sapphire meeting room",
+      "hint": "Mid-size meeting room"
+    },
+    "HK_LOC_MEET_RUBY": {
+      "label": "Ruby meeting room",
+      "hint": "Small meeting room"
+    },
+    "HK_LOC_BOARDROOM": {
+      "label": "Boardroom",
+      "hint": "Executive boardroom"
+    },
+    "HK_LOC_BRIDAL": {
+      "label": "Bridal prep suite",
+      "hint": "Wedding preparation room"
+    },
+    "HK_LOC_VALET": {
+      "label": "Valet",
+      "hint": "Vehicle drop-off"
+    },
+    "HK_LOC_TAXI": {
+      "label": "Taxi stand",
+      "hint": "Taxi & hire cars"
+    },
+    "HK_LOC_SHUTTLE": {
+      "label": "Shuttle stop",
+      "hint": "Hotel shuttle / tours"
+    },
+    "HK_LOC_EV_CHARGE": {
+      "label": "EV charging",
+      "hint": "Electric vehicle charging"
+    },
+    "HK_LOC_SMOKING": {
+      "label": "Designated smoking area",
+      "hint": "Outdoor smoking zone"
+    },
+    "HK_LOC_FIRST_AID": {
+      "label": "First aid room",
+      "hint": "On-site first aid"
+    },
+    "HK_LOC_PRAYER": {
+      "label": "Prayer room",
+      "hint": "Prayer / meditation room"
+    },
+    "HK_LOC_WATER_FEATURE": {
+      "label": "Central courtyard",
+      "hint": "Fountain & central plaza"
+    }
   },
   "common": {
     "loading": "Loading…",

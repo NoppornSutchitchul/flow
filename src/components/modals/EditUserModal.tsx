@@ -56,7 +56,7 @@ export function EditUserModal({ user, onClose }: Props) {
     setShowPasswordErrors(false);
     setPasswordMsg(null);
     setPasswordErr(null);
-  }, [user?.id]);
+  }, [user]);
 
   const { data: jobTitleRows = [] } = useQuery({
     queryKey: ["job-titles", department],
@@ -75,7 +75,7 @@ export function EditUserModal({ user, onClose }: Props) {
     setJobTitle((j) =>
       j && jobTitlesForDept.some((r) => r.label === j) ? j : jobTitlesForDept[0].label,
     );
-  }, [department, jobTitleRows, jobTitlesForDept, user?.id]);
+  }, [department, jobTitleRows, jobTitlesForDept, user]);
 
   const fullDisplayName = useMemo(
     () => joinDisplayName(firstName, lastName),

@@ -135,13 +135,14 @@ export function OrgDeleteConfirmModal({
   }, [deptStaff, jobTitleDeptByLabel]);
 
   const defaultMoveDept = reassignOptions[0]?.value ?? "";
+  const departmentTargetId = target?.kind === "department" ? target.id : null;
 
   useEffect(() => {
     if (!open) {
       setReassignTarget("");
       setJtMoveTarget({});
     }
-  }, [open, target?.kind, target?.kind === "department" ? target.id : null]);
+  }, [open, target?.kind, departmentTargetId]);
 
   useEffect(() => {
     if (reassignOptions.length > 0 && !reassignTarget) {

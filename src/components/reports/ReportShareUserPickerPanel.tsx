@@ -101,6 +101,7 @@ export function ReportShareUserPickerPanel({
   const [pendingIds, setPendingIds] = useState<number[]>([]);
   const [asideExpanded, setAsideExpanded] = useState(false);
 
+  const excludedKey = excludeUserIds.join(",");
   const sharedKey = sharedRecipients.map((u) => u.user_id).join(",");
 
   useEffect(() => {
@@ -110,7 +111,7 @@ export function ReportShareUserPickerPanel({
       typeof window !== "undefined" &&
       window.matchMedia("(min-width: 1024px)").matches;
     setAsideExpanded(wide);
-  }, [excludeUserIds.join(","), sharedKey]);
+  }, [excludedKey, sharedKey]);
 
   useEffect(() => {
     onPendingChange?.(pendingIds);

@@ -95,8 +95,7 @@ export function useClosingRequests(
   useLayoutEffect(() => {
     if (!enabled) {
       prevRowsRef.current = new Map(rows.map((r) => [r.id, r]));
-      setDisplayOrder(rows.map((r) => r.id));
-      setClosing(new Map());
+      setClosing((prev) => (prev.size === 0 ? prev : new Map()));
       return;
     }
 
@@ -268,6 +267,7 @@ export function useClosingRequests(
   }, [rows, closing, activeSort, closingIds, enabled, displayOrder]);
 
   useLayoutEffect(() => {
+    if (!enabled) return;
     const next = displayRows.map((r) => r.id);
     setDisplayOrder((prev) => {
       if (prev.length === next.length && prev.every((id, i) => id === next[i])) {
@@ -275,7 +275,7 @@ export function useClosingRequests(
       }
       return next;
     });
-  }, [displayRows]);
+  }, [displayRows, enabled]);
 
   const snapshotFor = useCallback(
     (id: number): RequestRead | undefined =>

@@ -640,7 +640,6 @@ export function RequestTable({
     sortable,
     sort,
     i18n.language,
-    tick,
     timeColumn,
     holdScheduledAtBottom,
     departmentLabel,
