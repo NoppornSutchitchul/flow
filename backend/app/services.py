@@ -50,11 +50,36 @@ def to_naive_utc(value: datetime | None) -> datetime | None:
     return value
 
 
+def _role_permission_template(**enabled: bool) -> dict[str, bool]:
+    base = {k: False for k in FEATURE_KEYS}
+    for key, value in enabled.items():
+        if key in base:
+            base[key] = bool(value)
+    return base
+
+
+# Demo-friendly defaults so fresh clones / reviewers see meaningful dock access per role.
+_ROLE_DEFAULTS: dict[str, dict[str, bool]] = {
+    "manager": _role_permission_template(
+        overview=True, requests=True, stock=True, reports=True,
+    ),
+    "hk_supervisor": _role_permission_template(
+        overview=True, requests=True, quick_request=True, stock=True,
+    ),
+    "frontdesk": _role_permission_template(
+        overview=True, requests=True, quick_request=True,
+    ),
+    "housekeeper": _role_permission_template(queue=True, requests=True),
+    "maintenance": _role_permission_template(queue=True, requests=True),
+    "bellboy": _role_permission_template(queue=True, requests=True),
+}
+
+
 def default_permissions(role: str) -> dict[str, bool]:
-    """Non-admin roles start with no app features; admin has full access."""
+    """Role-based feature flags; admin has full access."""
     if role == "admin":
         return {k: True for k in FEATURE_KEYS}
-    return {k: False for k in FEATURE_KEYS}
+    return dict(_ROLE_DEFAULTS.get(role, {k: False for k in FEATURE_KEYS}))
 
 
 def _apply_override(out: dict[str, bool], key: str, value: object) -> None:

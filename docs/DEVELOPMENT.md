@@ -97,6 +97,11 @@ On first backend start the API creates `backend/hotelops.db`, seeds staff, and s
 **Bell Boy**, restart `./backend/run.sh` once — older startup order could skip the rest until
 the catalog sync runs.
 
+Staff **feature permissions** (green icons on the Users table) come from role defaults in
+`backend/app/services.py` (`default_permissions`) — e.g. bellboy/maintenance/housekeeper get
+`queue` + `requests`; managers get `overview`, `requests`, `stock`, `reports`. Restart the
+backend after pulling so `/api/users` returns updated flags.
+
 ## Locale workflow
 
 1. Edit copy in `src/locales/en.json` and `src/locales/th.json`.
