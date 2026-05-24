@@ -31,6 +31,8 @@
     "login_username_ph": "e.g. Admin or NarisaH",
     "login_password": "Password",
     "login_submit": "Sign in",
+    "login_demo_credentials": "User: Admin · Password: 1234",
+    "login_demo_accounts_path": "Browse all demo accounts: Settings > Data management hub > Users",
     "login_error_required": "Enter username and password.",
     "login_error_invalid": "Invalid username or password.",
     "login_error_server_unreachable": "Cannot reach the server — it may be restarting. Wait a moment and try again.",

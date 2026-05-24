@@ -31,6 +31,8 @@
     "login_username_ph": "เช่น Admin หรือ NarisaH",
     "login_password": "รหัสผ่าน",
     "login_submit": "เข้าสู่ระบบ",
+    "login_demo_credentials": "User : Admin / Password : 1234",
+    "login_demo_accounts_path": "สามารถเข้าไปดูบัญชีของทุกคนได้ที่ \nตั้งค่า > ศูนย์จัดการข้อมูล > ผู้ใช้",
     "login_error_required": "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน",
     "login_error_invalid": "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
     "login_error_server_unreachable": "เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ — อาจกำลังรีสตาร์ท รอสักครู่แล้วลองใหม่",

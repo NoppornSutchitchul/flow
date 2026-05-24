@@ -1771,5 +1771,7 @@
   "In Stock, edit each product and change the middle code on the SKU chip to another category, then try again.": "ไปที่สต็อก → แก้ไขสินค้า → เปลี่ยนรหัสกลางบนชิป SKU เป็นหมวดอื่น แล้วลองลบอีกครั้ง",
   "Services can use any category code for this department (e.g. LUG for luggage, or SVC for general service).": "บริการเลือกรหัสกลางได้ เช่น LUG สำหรับกระเป๋า หรือ SVC สำหรับบริการทั่วไป",
   "Each category belongs to one department (e.g. Housekeeping → BED, SLP) and forms the middle of product codes like HK-BED-001. You can add categories and edit names/icons anytime. Code and department cannot change after save.": "หมวดหมู่ผูกกับแผนก (เช่น แม่บ้าน → BED, SLP) และใช้เป็นส่วนกลางของรหัสสินค้า เช่น HK-BED-001 — เพิ่ม แก้ไขชื่อ/ไอคอนได้ตลอด รหัสและแผนกห้ามแก้หลังบันทึก",
-  "No categories for this department yet.": "ยังไม่มีหมวดหมู่ในแผนกนี้"
+  "No categories for this department yet.": "ยังไม่มีหมวดหมู่ในแผนกนี้",
+  "User: Admin · Password: 1234": "User : Admin  Password : 1234",
+  "Browse all demo accounts: Settings > Data management hub > Users": "และ สามารถเข้าไปดู account ของทุกคนได้ที่ ตั้งค่า > ศูนย์จัดการข้อมูล > ผู้ใช้"
 }

@@ -80,10 +80,8 @@ export function LoginPage() {
             </h1>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="rounded-2xl border border-[color:var(--color-line)] bg-white p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] sm:p-6"
-          >
+          <div className="rounded-2xl border border-[color:var(--color-line)] bg-white p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] sm:p-6">
+          <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <label className="block">
                 <span className="mb-1.5 block text-xs font-semibold text-[color:var(--color-ink-soft)]">
@@ -153,6 +151,12 @@ export function LoginPage() {
               {pending ? t("common.loading") : t("auth.login_submit")}
             </button>
           </form>
+
+          <div className="mt-5 space-y-2 border-t border-[color:var(--color-line)]/80 pt-4 text-center text-xs leading-relaxed text-[color:var(--color-ink-muted)] whitespace-pre-line">
+            <p>{t("auth.login_demo_credentials")}</p>
+            <p>{t("auth.login_demo_accounts_path")}</p>
+          </div>
+          </div>
         </div>
       </main>
     </div>
