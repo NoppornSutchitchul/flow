@@ -2635,7 +2635,7 @@ def report_preset_data(
     stock_status: Optional[str] = Query(None),
     _current: User = Depends(get_current_user),
 ) -> ReportPresetData:
-    from . import report_queries
+    from .reports import report_queries
 
     handler = report_queries.PRESET_HANDLERS.get(slug)
     if not handler:
