@@ -90,6 +90,13 @@ Reset database (stops ports 8000/5173/5174, deletes `hotelops.db`):
 
 Then start backend again — `init_db()` recreates tables and seeds users.
 
+### Fresh clone (`hotelops.db` not in git)
+
+On first backend start the API creates `backend/hotelops.db`, seeds staff, and syncs the
+**job-title catalog** (all presets under Users → manage positions). If that modal showed only
+**Bell Boy**, restart `./backend/run.sh` once — older startup order could skip the rest until
+the catalog sync runs.
+
 ## Locale workflow
 
 1. Edit copy in `src/locales/en.json` and `src/locales/th.json`.

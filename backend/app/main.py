@@ -72,7 +72,7 @@ from .seed.seed import (
     sync_hotel_locations_catalog,
     seed_if_empty,
     seed_departments_if_empty,
-    seed_job_titles_if_empty,
+    sync_job_titles_catalog,
 )
 from .seed.seed_report_demo import seed_report_demo_data
 from .services import (
@@ -136,10 +136,10 @@ async def lifespan(_app: FastAPI):
     migrate_job_titles_restore_department_scope()
     migrate_renamed_job_title_labels()
     migrate_usernames_to_first_name()
+    sync_job_titles_catalog()
     from .seed.seed import migrate_ensure_bell_boy_department_and_staff
 
     migrate_ensure_bell_boy_department_and_staff()
-    seed_job_titles_if_empty()
     seed_hotel_locations_if_empty()
     sync_hotel_locations_catalog()
     purge_unspecified_hotel_location()

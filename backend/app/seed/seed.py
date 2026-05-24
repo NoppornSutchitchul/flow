@@ -277,13 +277,27 @@ def migrate_org_departments_to_english_names() -> None:
             s.commit()
 
 
-def seed_job_titles_if_empty() -> None:
+def sync_job_titles_catalog() -> None:
+    """Ensure every default job-title preset exists (idempotent).
+
+    Must run before migrations that insert a single title (e.g. Bell Boy);
+    otherwise an early non-empty table would skip the full catalog.
+    """
     with Session(engine) as s:
-        if s.exec(select(JobTitle)).first():
-            return
+        existing = {row.label for row in s.exec(select(JobTitle)).all()}
+        added = False
         for label, dept, so in DEFAULT_JOB_TITLE_ROWS:
+            if label in existing:
+                continue
             s.add(JobTitle(label=label, department=dept, sort_order=so))
-        s.commit()
+            added = True
+        if added:
+            s.commit()
+
+
+def seed_job_titles_if_empty() -> None:
+    """Backward-compatible alias — use sync_job_titles_catalog()."""
+    sync_job_titles_catalog()
 
 
 def _corridor_location_rows() -> list[tuple[str, str, str | None, int]]:
