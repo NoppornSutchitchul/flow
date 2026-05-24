@@ -28,11 +28,11 @@ To reset all local data, delete `backend/hotelops.db` and restart the backend, o
 
 ## Documentation
 
-| Doc | Contents |
-|-----|----------|
-| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Setup, scripts, locale sync, troubleshooting |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design, auth, realtime, data flow |
-| [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) | Folder map and module guide |
+| Doc                                                    | Contents                                     |
+| ------------------------------------------------------ | -------------------------------------------- |
+| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)             | Setup, scripts, locale sync, troubleshooting |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)           | System design, auth, realtime, data flow     |
+| [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) | Folder map and module guide                  |
 
 ## Features (summary)
 
@@ -41,13 +41,13 @@ To reset all local data, delete `backend/hotelops.db` and restart the backend, o
 Bottom navigation depends on role (admin, manager, supervisors, front desk,
 housekeeper, maintenance). See `src/lib/appFeatures.ts`.
 
-| Role | Typical nav |
-|------|-------------|
-| Admin | Dashboard · Requests · Products · Stock · **+** · Reports · Users · Settings |
-| Manager | Dashboard · Requests · Products · Reports |
-| HK Supervisor | Dashboard · Requests · **+** · Products |
-| Front desk | Dashboard · **+** · Requests |
-| Housekeeper / Maintenance | My queue · Requests |
+| Role                      | Typical nav                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| Admin                     | Dashboard · Requests · Products · Stock · **+** · Reports · Users · Settings |
+| Manager                   | Dashboard · Requests · Products · Reports                                    |
+| HK Supervisor             | Dashboard · Requests · **+** · Products                                      |
+| Front desk                | Dashboard · **+** · Requests                                                 |
+| Housekeeper / Maintenance | My queue · Requests                                                          |
 
 ### Requests
 
@@ -72,18 +72,18 @@ Copy lives in `src/locales/th.json` and `en.json`.
 
 ## API (selected)
 
-| Method | Path | Description |
-|--------|------|-------------|
-| POST | `/api/auth/login` | Sign in |
-| GET | `/api/auth/me` | Current user |
-| GET | `/api/dashboard/stats` | Dashboard KPIs |
-| GET | `/api/requests` | List (filters: status, date, dept, …) |
-| GET | `/api/requests/{id}` | Detail + timeline |
-| POST | `/api/requests` | Create |
-| POST | `/api/requests/{id}/accept` … | State transitions |
-| GET/PATCH | `/api/products` | Catalog & stock |
-| GET | `/api/reports/...` | Presets & exports |
-| WS | `/ws` | Live updates |
+| Method    | Path                          | Description                           |
+| --------- | ----------------------------- | ------------------------------------- |
+| POST      | `/api/auth/login`             | Sign in                               |
+| GET       | `/api/auth/me`                | Current user                          |
+| GET       | `/api/dashboard/stats`        | Dashboard KPIs                        |
+| GET       | `/api/requests`               | List (filters: status, date, dept, …) |
+| GET       | `/api/requests/{id}`          | Detail + timeline                     |
+| POST      | `/api/requests`               | Create                                |
+| POST      | `/api/requests/{id}/accept` … | State transitions                     |
+| GET/PATCH | `/api/products`               | Catalog & stock                       |
+| GET       | `/api/reports/...`            | Presets & exports                     |
+| WS        | `/ws`                         | Live updates                          |
 
 Full schema: http://localhost:8000/docs
 
@@ -96,4 +96,8 @@ npm run preview  # serve production bundle locally
 
 ## License
 
-Private / portfolio use — add a license file if you open-source the repo.
+© 2026 Nopporn Sutchitchul. All rights reserved.
+
+This repository is published for portfolio and job-application review only.
+You may not copy, modify, distribute, or use this software for commercial
+purposes without written permission from the author.
