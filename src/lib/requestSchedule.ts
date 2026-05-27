@@ -6,6 +6,8 @@ export type ScheduleMode = "immediate" | "delay" | "at_time";
 export type SchedulePickerState = {
   mode: ScheduleMode;
   delayMinutes: number;
+  /** Local calendar date YYYY-MM-DD for at_time mode. */
+  atDate: string;
   atTime: string;
 };
 
@@ -15,13 +17,19 @@ function pad2(n: number): string {
   return String(n).padStart(2, "0");
 }
 
+/** Hotel-local calendar date as YYYY-MM-DD. */
+export function localDateYmd(base = new Date()): string {
+  const local = new Date(base.getTime() - base.getTimezoneOffset() * 60_000);
+  return local.toISOString().slice(0, 10);
+}
+
 /** Map API request schedule fields to quick-request picker state. */
 export function readSchedulePickerState(
   r: Pick<RequestRead, "schedule_mode" | "scheduled_at">,
 ): SchedulePickerState {
   const modeRaw = r.schedule_mode ?? "immediate";
   if (modeRaw === "immediate" || !r.scheduled_at) {
-    return { mode: "immediate", delayMinutes: 30, atTime: "10:00" };
+    return { mode: "immediate", delayMinutes: 30, atDate: localDateYmd(), atTime: "10:00" };
   }
 
   if (modeRaw === "at_time") {
@@ -30,6 +38,7 @@ export function readSchedulePickerState(
     return {
       mode: "at_time",
       delayMinutes: 30,
+      atDate: localDateYmd(d),
       atTime: `${pad2(d.getHours())}:${pad2(d.getMinutes())}`,
     };
   }
@@ -41,14 +50,19 @@ export function readSchedulePickerState(
   const snap =
     DELAY_SNAP_MINUTES.find((m) => m >= diffMin) ??
     DELAY_SNAP_MINUTES[DELAY_SNAP_MINUTES.length - 1];
-  return { mode: "delay", delayMinutes: snap, atTime: "10:00" };
+  return { mode: "delay", delayMinutes: snap, atDate: localDateYmd(), atTime: "10:00" };
 }
 
 export function schedulePickerFieldsEqual(
   a: SchedulePickerState,
   b: SchedulePickerState,
 ): boolean {
-  return a.mode === b.mode && a.delayMinutes === b.delayMinutes && a.atTime === b.atTime;
+  return (
+    a.mode === b.mode
+    && a.delayMinutes === b.delayMinutes
+    && a.atDate === b.atDate
+    && a.atTime === b.atTime
+  );
 }
 
 export type ScheduleApiFields = {
@@ -57,23 +71,29 @@ export type ScheduleApiFields = {
   schedule_daily_time?: string;
 };
 
-/** Next local occurrence of HH:mm (today if still ahead, else tomorrow). */
-export function localDateAtTime(hhmm: string, base = new Date()): Date {
+/** Local date + clock time (no rollover). */
+export function localDateTimeAt(dateYmd: string, hhmm: string): Date {
+  const [yRaw, moRaw, dRaw] = dateYmd.split("-");
   const [hRaw, mRaw] = hhmm.split(":");
+  const y = Number(yRaw);
+  const mo = Number(moRaw);
+  const d = Number(dRaw);
   const h = Number(hRaw);
   const m = Number(mRaw);
-  const d = new Date(base);
-  d.setSeconds(0, 0);
-  d.setHours(Number.isFinite(h) ? h : 0, Number.isFinite(m) ? m : 0, 0, 0);
-  if (d.getTime() <= base.getTime()) {
-    d.setDate(d.getDate() + 1);
+  const dt = new Date();
+  dt.setSeconds(0, 0);
+  dt.setMilliseconds(0);
+  if (Number.isFinite(y) && Number.isFinite(mo) && Number.isFinite(d)) {
+    dt.setFullYear(y, mo - 1, d);
   }
-  return d;
+  dt.setHours(Number.isFinite(h) ? h : 0, Number.isFinite(m) ? m : 0, 0, 0);
+  return dt;
 }
 
 export function buildScheduleApiFields(
   mode: ScheduleMode,
   delayMinutes: number,
+  atDate: string,
   atTime: string,
 ): ScheduleApiFields {
   if (mode === "immediate") {
@@ -87,7 +107,7 @@ export function buildScheduleApiFields(
   }
   return {
     schedule_mode: "at_time",
-    scheduled_at: localDateAtTime(atTime).toISOString(),
+    scheduled_at: localDateTimeAt(atDate || localDateYmd(), atTime).toISOString(),
   };
 }
 

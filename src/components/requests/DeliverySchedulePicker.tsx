@@ -4,7 +4,10 @@ import { useMemo, useState, type ReactNode, type RefObject } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ScheduleMode } from "../../lib/requestSchedule";
+import { localDateYmd } from "../../lib/requestSchedule";
 import { AnimateCollapse } from "../ui/AnimateCollapse";
+import { DatePickerField } from "../ui/DatePickerField";
+import { TimePickerField } from "../ui/TimePickerField";
 
 const DELAY_OPTIONS = [
   { minutes: 5, key: "schedule.delay_5" },
@@ -19,6 +22,8 @@ interface Props {
   onModeChange: (mode: ScheduleMode) => void;
   delayMinutes: number;
   onDelayMinutesChange: (minutes: number) => void;
+  atDate: string;
+  onAtDateChange: (date: string) => void;
   atTime: string;
   onAtTimeChange: (time: string) => void;
   /** Open expanded by default (request detail editor). */
@@ -27,9 +32,6 @@ interface Props {
   /** Focus target for keyboard flow from the room picker. */
   triggerRef?: RefObject<HTMLButtonElement | null>;
 }
-
-const timeInputClass =
-  "rounded-md border border-[color:var(--color-line)] bg-white px-1.5 py-0.5 text-xs tabular-nums focus:outline-none focus:ring-1 focus:ring-[color:var(--color-ink)]/15";
 
 function CompactRow({
   active,
@@ -78,14 +80,17 @@ export function DeliverySchedulePicker({
   onModeChange,
   delayMinutes,
   onDelayMinutesChange,
+  atDate,
+  onAtDateChange,
   atTime,
   onAtTimeChange,
   defaultExpanded = false,
   className,
   triggerRef,
 }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const todayYmd = useMemo(() => localDateYmd(), []);
 
   const summary = useMemo(() => {
     if (mode === "immediate") return t("schedule.immediate");
@@ -94,8 +99,12 @@ export function DeliverySchedulePicker({
       const delayLabel = opt ? t(opt.key) : `${delayMinutes} min`;
       return `${t("schedule.delay_label")} ${delayLabel}`;
     }
-    return `${t("schedule.at_time_short")} ${atTime}`;
-  }, [mode, delayMinutes, atTime, t]);
+    const dateLabel = new Date(`${atDate}T12:00:00`).toLocaleDateString(i18n.language, {
+      day: "numeric",
+      month: "short",
+    });
+    return `${dateLabel} ${atTime}`;
+  }, [mode, delayMinutes, atDate, atTime, t, i18n.language]);
 
   const selectImmediate = () => {
     onModeChange("immediate");
@@ -176,18 +185,37 @@ export function DeliverySchedulePicker({
           <CompactRow
             active={mode === "at_time"}
             onSelect={() => onModeChange("at_time")}
-            label={t("schedule.at_time_short")}
+            label={t("schedule.at_datetime_short")}
           >
-            <input
-              type="time"
-              value={atTime}
+            <span
+              className="flex min-w-0 flex-wrap items-center justify-end gap-1"
               onClick={(e) => e.stopPropagation()}
-              onChange={(e) => {
-                onModeChange("at_time");
-                onAtTimeChange(e.target.value);
-              }}
-              className={timeInputClass}
-            />
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <DatePickerField
+                value={atDate}
+                min={todayYmd}
+                onChange={(iso) => {
+                  onModeChange("at_time");
+                  onAtDateChange(iso);
+                }}
+                size="sm"
+                compact
+                className="w-[8.5rem] shrink-0"
+                aria-label={t("schedule.at_datetime_short")}
+              />
+              <TimePickerField
+                value={atTime}
+                onChange={(time) => {
+                  onModeChange("at_time");
+                  onAtTimeChange(time);
+                }}
+                size="sm"
+                compact
+                className="w-[5.75rem] shrink-0"
+                aria-label={t("schedule.time_picker_open")}
+              />
+            </span>
           </CompactRow>
         </div>
       </AnimateCollapse>

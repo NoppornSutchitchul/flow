@@ -141,6 +141,7 @@ export function ScheduledHoldEditor({
       const scheduleFields = buildScheduleApiFields(
         draft.schedule.mode,
         draft.schedule.delayMinutes,
+        draft.schedule.atDate,
         draft.schedule.atTime,
       );
       return requestsApi.updateHold(reqId, {
@@ -370,6 +371,10 @@ export function ScheduledHoldEditor({
               delayMinutes={draft.schedule.delayMinutes}
               onDelayMinutesChange={(delayMinutes) =>
                 setDraft((d) => ({ ...d, schedule: { ...d.schedule, delayMinutes } }))
+              }
+              atDate={draft.schedule.atDate}
+              onAtDateChange={(atDate) =>
+                setDraft((d) => ({ ...d, schedule: { ...d.schedule, atDate } }))
               }
               atTime={draft.schedule.atTime}
               onAtTimeChange={(atTime) =>

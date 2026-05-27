@@ -45,6 +45,7 @@ import { RoomCombobox } from "../hotel/RoomCombobox";
 import { StaffAssigneePicker } from "../users/StaffAssigneePicker";
 import {
   buildScheduleApiFields,
+  localDateYmd,
   type ScheduleMode,
 } from "../../lib/requestSchedule";
 
@@ -101,6 +102,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
   const [prefBbId, setPrefBbId] = useState<number | "">("");
   const [scheduleMode, setScheduleMode] = useState<ScheduleMode>("immediate");
   const [delayMinutes, setDelayMinutes] = useState(30);
+  const [atDate, setAtDate] = useState(() => localDateYmd());
   const [atTime, setAtTime] = useState("10:00");
   const [pickedPage, setPickedPage] = useState(0);
   const productPickerRef = useRef<HTMLDivElement>(null);
@@ -208,6 +210,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
       setPrefMtId("");
       setScheduleMode("immediate");
       setDelayMinutes(30);
+      setAtDate(localDateYmd());
       setAtTime("10:00");
       setPickedPage(0);
       prevPickedLenRef.current = 0;
@@ -514,6 +517,7 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
       const scheduleFields = buildScheduleApiFields(
         scheduleMode,
         delayMinutes,
+        atDate,
         atTime,
       );
 
@@ -892,6 +896,8 @@ export function QuickRequestModal({ open, onClose, onCreated, creatorId }: Props
           onModeChange={setScheduleMode}
           delayMinutes={delayMinutes}
           onDelayMinutesChange={setDelayMinutes}
+          atDate={atDate}
+          onAtDateChange={setAtDate}
           atTime={atTime}
           onAtTimeChange={setAtTime}
           triggerRef={scheduleTriggerRef}
