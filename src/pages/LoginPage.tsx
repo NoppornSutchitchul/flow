@@ -162,11 +162,19 @@ export function LoginPage() {
     }
   };
 
-  const handleSelectDemoAccount = (account: DemoAccount) => {
-    setUsername(account.username);
-    setPassword(account.password);
+  const handleSelectDemoAccount = async(account: DemoAccount) => {
     setError(null);
+    setPending(true);
     setShowDepartmentAccounts(false);
+    try {
+      await login(account.username, account.password);
+      const user = qc.getQueryData<User>(["auth", "me"]);
+      navigate(user ? homePathForUser(user) : "/", {replace : true});
+    } catch (err) {
+      setError(loginErrorMessage(err, t))
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -348,7 +356,8 @@ export function LoginPage() {
                     <button
                       key={`${user.departmentKey}-${user.username}-${user.jobTitle}`}
                       type="button"
-                      onClick={() => handleSelectDemoAccount(user)}
+                      disabled={pending}
+                      onClick={() => void handleSelectDemoAccount(user)}
                       className="group w-full cursor-pointer rounded-md border border-[color:var(--color-line)] bg-white p-2 text-left shadow-sm ring-1 ring-transparent transition hover:-translate-y-0.5 hover:border-[color:var(--color-ink)]/25 hover:shadow-md hover:ring-[color:var(--color-ink)]/15 active:translate-y-0 active:shadow-sm"
                     >
                       <p className="flex items-center justify-between gap-2 text-xs text-[color:var(--color-ink)]">
