@@ -154,6 +154,21 @@ def can_use_quick_request(perms: dict[str, bool], role: str) -> bool:
     return bool(perms.get("quick_request"))
 
 
+def _is_maintenance_staff(user: User) -> bool:
+    """Maintenance assignee predicate with legacy engineer compatibility."""
+    dept = (user.department or "").strip()
+    if dept not in ("maintenance", "engineer"):
+        return False
+    role = (user.role or "").strip()
+    if role in ("maintenance", "manager"):
+        return True
+    # Legacy seeds used housekeeper role for engineering staff.
+    if role != "housekeeper":
+        return False
+    jt = (user.job_title or "").strip().lower()
+    return ("technician" in jt) or ("engineer" in jt) or ("ช่าง" in jt)
+
+
 def requests_list_scope_for_user(user: User) -> dict[str, object]:
     """Field ops on /requests: today only + own request department."""
     if user.role == "housekeeper" and user.department == "housekeeping":
@@ -569,7 +584,7 @@ def eligible_assignee(
     if not user.active:
         return False
     if dept == "maintenance":
-        return user.role in ("maintenance",) and user.department == "maintenance"
+        return _is_maintenance_staff(user)
     if dept == "front_office":
         return user.department == "front_office" and user.role in (
             "frontdesk",
@@ -775,6 +790,15 @@ def open_workload_by_user(s: Session) -> dict[int, int]:
 
 
 def _active_users(s: Session, *, department: str, roles: tuple[str, ...]) -> list[User]:
+    if department == "maintenance":
+        return list(
+            s.exec(
+                select(User).where(
+                    User.active == True,  # noqa: E712
+                    User.department.in_(("maintenance", "engineer")),
+                ),
+            ).all(),
+        )
     return list(
         s.exec(
             select(User).where(

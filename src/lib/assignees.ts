@@ -17,8 +17,16 @@ export function assignableUsers(dept: AssignableDept, list: User[]) {
         (u.department === "bell_boy" || u.department === "front_office")
       );
     }
+    if (dept === "maintenance") {
+      const isLegacyEngineer = u.department === "engineer";
+      const inMaintenanceOrg = u.department === "maintenance" || isLegacyEngineer;
+      if (!inMaintenanceOrg) return false;
+      if (u.role === "maintenance" || u.role === "manager") return true;
+      if (u.role !== "housekeeper") return false;
+      const jt = (u.job_title ?? "").trim().toLowerCase();
+      return jt.includes("technician") || jt.includes("engineer") || jt.includes("ช่าง");
+    }
     if (u.department !== dept) return false;
-    if (dept === "maintenance") return u.role === "maintenance";
     if (dept === "front_office") {
       return u.role === "frontdesk" || u.role === "manager";
     }
