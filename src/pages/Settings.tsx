@@ -125,6 +125,7 @@ export function SettingsPage() {
   const [danger, setDanger] = useState<string>(String(readThresholdInitial("danger")));
   const [breach, setBreach] = useState<string>(String(readThresholdInitial("breach")));
   const [saved, setSaved] = useState(false);
+  const [hasTimeThresholdEdits, setHasTimeThresholdEdits] = useState(false);
 
   const { data: serverThresholds } = useQuery({
     queryKey: ["settings", "time-alerts"],
@@ -134,10 +135,11 @@ export function SettingsPage() {
   useEffect(() => {
     if (!serverThresholds) return;
     applyTimeAlertSettings(serverThresholds);
+    if (hasTimeThresholdEdits) return;
     setWarn(String(serverThresholds.warn));
     setDanger(String(serverThresholds.danger));
     setBreach(String(serverThresholds.breach));
-  }, [serverThresholds]);
+  }, [serverThresholds, hasTimeThresholdEdits]);
 
   useEffect(() => {
     if (!saved) return;
@@ -195,6 +197,7 @@ export function SettingsPage() {
       actor_id: current.id,
     });
     applyTimeAlertSettings(savedPayload);
+    setHasTimeThresholdEdits(false);
     setSaved(true);
     void qc.invalidateQueries({ queryKey: ["settings", "time-alerts"] });
     void prefetchObservedQueries(qc, ["requests"]);
@@ -363,7 +366,10 @@ export function SettingsPage() {
             label={t("settings.time_warn_min")}
             tone="warn"
             value={warn}
-            onChange={setWarn}
+            onChange={(next) => {
+              setHasTimeThresholdEdits(true);
+              setWarn(next);
+            }}
             readOnly={!isAdmin}
           />
           <ThresholdField
@@ -371,7 +377,10 @@ export function SettingsPage() {
             label={t("settings.time_danger_min")}
             tone="danger"
             value={danger}
-            onChange={setDanger}
+            onChange={(next) => {
+              setHasTimeThresholdEdits(true);
+              setDanger(next);
+            }}
             readOnly={!isAdmin}
           />
           <ThresholdField
@@ -379,7 +388,10 @@ export function SettingsPage() {
             label={t("settings.time_overdue_min")}
             tone="breach"
             value={breach}
-            onChange={setBreach}
+            onChange={(next) => {
+              setHasTimeThresholdEdits(true);
+              setBreach(next);
+            }}
             readOnly={!isAdmin}
           />
         </ol>

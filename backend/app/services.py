@@ -444,7 +444,7 @@ def apply_pending_auto_cancels(s: Session) -> list[int]:
         select(Request).where(
             Request.auto_cancel_at.is_not(None),
             Request.auto_cancel_at <= now,
-            Request.status.not_in_(("delivered", "cancelled")),
+            Request.status.not_in(("delivered", "cancelled")),
         ),
     ).all()
     for r in rows:
@@ -658,7 +658,7 @@ def _sync_open_request_response_budget(s: Session, breach: int) -> None:
     """Keep open requests aligned with the configured response-time deadline."""
     budget = max(1, breach)
     rows = s.exec(
-        select(Request).where(Request.status.not_in_(("delivered", "cancelled"))),
+        select(Request).where(Request.status.not_in(("delivered", "cancelled"))),
     ).all()
     for r in rows:
         if r.response_minutes != budget:
@@ -1152,7 +1152,7 @@ def clear_premature_scheduled_assignments(s: Session) -> list[int]:
             Request.schedule_mode != "immediate",
             Request.scheduled_at.is_not(None),
             Request.scheduled_at > now,
-            Request.status.not_in_(("delivered", "cancelled")),
+            Request.status.not_in(("delivered", "cancelled")),
         ),
     ).all()
     for r in rows:
