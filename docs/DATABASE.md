@@ -70,7 +70,18 @@ Notes:
 - `postgres://` URLs are auto-converted to `postgresql+psycopg://`
 - For Neon/Supabase, keep `sslmode=require` in the URL
 
-### 4. Start the backend
+### 4. Deploy script (EC2 / server)
+
+After `git pull` on `main`, set `DATABASE_URL` in repo-root `.env`, then:
+
+```bash
+chmod +x scripts/deploy-production.sh
+./scripts/deploy-production.sh
+```
+
+This installs backend deps, builds the frontend, and migrates `backend/hotelops.db` into Postgres if that file exists. Then restart your backend service (systemd) and reload nginx if used.
+
+### 5. Start the backend
 
 ```bash
 cd backend
