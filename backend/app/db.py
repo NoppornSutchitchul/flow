@@ -1,24 +1,57 @@
-"""SQLite engine + session helpers."""
+"""Database engine + session helpers (SQLite local default, PostgreSQL via DATABASE_URL)."""
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from sqlalchemy import event
 from sqlmodel import SQLModel, Session, create_engine
 
 DB_PATH = Path(__file__).resolve().parent.parent / "hotelops.db"
-SQLITE_URL = f"sqlite:///{DB_PATH}"
+
+
+def resolve_database_url() -> str:
+    """DATABASE_URL from env, else local SQLite file."""
+    raw = (os.environ.get("DATABASE_URL") or "").strip()
+    if not raw:
+        return f"sqlite:///{DB_PATH}"
+    if raw.startswith("postgres://"):
+        return "postgresql+psycopg://" + raw.removeprefix("postgres://")
+    if raw.startswith("postgresql://") and "+psycopg" not in raw:
+        return "postgresql+psycopg://" + raw.removeprefix("postgresql://")
+    return raw
+
+
+DATABASE_URL = resolve_database_url()
+
+
+def _engine_connect_args(url: str) -> dict:
+    if url.startswith("sqlite"):
+        return {"check_same_thread": False, "timeout": 60}
+    return {}
+
 
 engine = create_engine(
-    SQLITE_URL,
+    DATABASE_URL,
     echo=False,
-    connect_args={"check_same_thread": False, "timeout": 60},
+    connect_args=_engine_connect_args(DATABASE_URL),
     pool_pre_ping=True,
 )
 
 
+def dialect_is_sqlite(eng=engine) -> bool:
+    return eng.dialect.name == "sqlite"
+
+
+def _sql_user_table(eng=engine) -> str:
+    """PostgreSQL reserves USER; quote the table name in raw SQL."""
+    return "user" if dialect_is_sqlite(eng) else '"user"'
+
+
 @event.listens_for(engine, "connect")
 def _sqlite_pragmas(dbapi_connection, _connection_record) -> None:
+    if not dialect_is_sqlite():
+        return
     cursor = dbapi_connection.cursor()
     cursor.execute("PRAGMA journal_mode=WAL")
     cursor.execute("PRAGMA busy_timeout=60000")
@@ -27,34 +60,41 @@ def _sqlite_pragmas(dbapi_connection, _connection_record) -> None:
 
 def init_db() -> None:
     SQLModel.metadata.create_all(engine)
-    _ensure_product_extra_columns(engine)
+
+    if dialect_is_sqlite():
+        _run_sqlite_legacy_migrations(engine)
+
     from .catalog.product_icon_emoji import backfill_product_icon_emojis
+    from .hotel.hotel_location_emoji import backfill_hotel_location_icon_emojis
 
     backfill_product_icon_emojis(engine)
     _normalize_product_name_suffixes(engine)
-    _ensure_user_extra_columns(engine)
-    _ensure_user_auth_columns(engine)
     _migrate_user_auth_defaults(engine)
-    _ensure_request_extra_columns(engine)
-    _ensure_request_perf_indexes(engine)
-    _ensure_requestitem_extra_columns(engine)
-    _migrate_request_response_minutes(engine)
-    _backfill_user_departments_from_job_title(engine)
     _normalize_legacy_staff_names(engine)
     _backfill_pending_scheduled_auto_assign(engine)
     _migrate_long_request_codes_to_short(engine)
     _seed_time_alert_settings(engine)
-    _ensure_productcategory_extra_columns(engine)
-    _seed_product_categories(engine)
     _migrate_product_categories_department(engine)
-    _migrate_hotellocation_slim_columns(engine)
-    _ensure_hotellocation_extra_columns(engine)
-    from .hotel.hotel_location_emoji import backfill_hotel_location_icon_emojis
-
+    _seed_product_categories(engine)
     backfill_hotel_location_icon_emojis(engine)
-    _ensure_guestroom_extra_columns(engine)
-    _ensure_room_attribute_option_table(engine)
-    _ensure_customreport_extra_columns(engine)
+    _ensure_request_perf_indexes(engine)
+    _backfill_user_departments_from_job_title(engine)
+
+
+def _run_sqlite_legacy_migrations(eng) -> None:
+    """Incremental ALTER TABLE steps for existing SQLite demo DBs."""
+    _ensure_product_extra_columns(eng)
+    _ensure_user_extra_columns(eng)
+    _ensure_user_auth_columns(eng)
+    _ensure_request_extra_columns(eng)
+    _ensure_requestitem_extra_columns(eng)
+    _migrate_request_response_minutes(eng)
+    _ensure_productcategory_extra_columns(eng)
+    _migrate_hotellocation_slim_columns(eng)
+    _ensure_hotellocation_extra_columns(eng)
+    _ensure_guestroom_extra_columns(eng)
+    _ensure_room_attribute_option_table(eng)
+    _ensure_customreport_extra_columns(eng)
 
 
 def _ensure_room_attribute_option_table(eng) -> None:
@@ -482,11 +522,12 @@ def _backfill_user_departments_from_job_title(eng) -> None:
         "Night Guest Service Agent",
         "Guest Relation Manager",
     )
+    user_tbl = _sql_user_table(eng)
     with eng.begin() as conn:
         for title in exec_mgmt:
             conn.execute(
                 text(
-                    "UPDATE user SET department = 'executive_management' "
+                    f"UPDATE {user_tbl} SET department = 'executive_management' "
                     "WHERE job_title = :t AND (department IS NULL OR department = '')",
                 ),
                 {"t": title},
@@ -494,7 +535,7 @@ def _backfill_user_departments_from_job_title(eng) -> None:
         for title in front_office:
             conn.execute(
                 text(
-                    "UPDATE user SET department = 'front_office' "
+                    f"UPDATE {user_tbl} SET department = 'front_office' "
                     "WHERE job_title = :t AND (department IS NULL OR department = '')",
                 ),
                 {"t": title},

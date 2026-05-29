@@ -59,10 +59,19 @@ when testing auth flows.
 
 ## Environment files
 
-- **`.env.example`** — optional placeholders (`VITE_API_URL`, `SECRET_KEY`, etc.).
+- **`.env.example`** — optional placeholders (`VITE_API_URL`, `DATABASE_URL`, etc.).
 - Local overrides: `.env` / `.env.local` (gitignored via `*.local`).
 
 For default local dev you do **not** need a `.env` file; Vite proxies to port 8000.
+
+### Database
+
+| Mode | Config |
+|------|--------|
+| Local (default) | Omit `DATABASE_URL` → SQLite `backend/hotelops.db` |
+| PostgreSQL | `DATABASE_URL=postgresql+psycopg://user:pass@host:5432/dbname` |
+
+See [DATABASE.md](./DATABASE.md) for production setup on Neon, EC2, or RDS.
 
 ## npm scripts
 

@@ -5,7 +5,16 @@ housekeeping and maintenance fulfil them from a queue, and managers track
 response times, stock, and reports.
 
 **Stack:** React 19 · Vite · TypeScript · Tailwind v4 · TanStack Query · i18next (TH/EN) ·
-FastAPI · SQLModel · SQLite · WebSockets
+FastAPI · SQLModel · **SQLite (dev)** / **PostgreSQL (production via `DATABASE_URL`)** · WebSockets
+
+## Live demo
+
+| | |
+|---|---|
+| **Web app** | [http://43.210.162.81/](http://43.210.162.81/) |
+| **Demo login** | Username `Admin` · Password `1234` |
+
+**User guides (detailed):** [Thai](docs/USER_GUIDE.md) · [English](docs/USER_GUIDE.en.md) — login, quick request, queue, reports, time thresholds, demo script
 
 ## Quick start
 
@@ -30,6 +39,9 @@ To reset all local data, delete `backend/hotelops.db` and restart the backend, o
 
 | Doc                                                    | Contents                                     |
 | ------------------------------------------------------ | -------------------------------------------- |
+| [docs/USER_GUIDE.md](docs/USER_GUIDE.md)               | **User guide (TH)** — live demo usage & demo script |
+| [docs/USER_GUIDE.en.md](docs/USER_GUIDE.en.md)         | **User guide (EN)** — same content in English       |
+| [docs/DATABASE.md](docs/DATABASE.md)                   | SQLite vs PostgreSQL, `DATABASE_URL`, deploy DB     |
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)             | Setup, scripts, locale sync, troubleshooting |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)           | System design, auth, realtime, data flow     |
 | [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) | Folder map and module guide                  |
