@@ -1,0 +1,130 @@
+/** Keep in sync with backend/app/hotel_location_emoji.py */
+
+export const HOTEL_LOCATION_EMOJI_BY_CODE: Record<string, string> = {
+  "HK-LOC-HALL": "🏛️",
+  "HK-LOC-LOBBY": "🛋️",
+  "HK-LOC-FRONT-DESK": "🛎️",
+  "HK-LOC-CONCIERGE": "🗺️",
+  "HK-LOC-BELL-DESK": "🧳",
+  "HK-LOC-LUGGAGE": "🛄",
+  "HK-LOC-BUSINESS": "💼",
+  "HK-LOC-VIP-LOUNGE": "👑",
+  "HK-LOC-LIFT": "🛗",
+  "HK-LOC-LOBBY-WR-F": "🚺",
+  "HK-LOC-LOBBY-WR-M": "🚻",
+  "HK-LOC-POOL-WR-F": "🚺",
+  "HK-LOC-POOL-WR-M": "🚻",
+  "HK-LOC-STAFF-WR-F": "🚺",
+  "HK-LOC-STAFF-WR-M": "🚻",
+  "HK-LOC-FRONT-OFFICE": "📋",
+  "HK-LOC-OFF-HK": "🧹",
+  "HK-LOC-OFF-MT": "🔧",
+  "HK-LOC-OFF-FNB": "🍽️",
+  "HK-LOC-OFF-SALES": "📈",
+  "HK-LOC-OFF-HR": "👥",
+  "HK-LOC-OFF-FIN": "💰",
+  "HK-LOC-OFF-ENG": "⚙️",
+  "HK-LOC-OFF-SEC": "🛡️",
+  "HK-LOC-OFF-GM": "🏢",
+  "HK-LOC-KITCH-HOT": "🔥",
+  "HK-LOC-KITCH-COLD": "🧊",
+  "HK-LOC-BANQUET-PREP": "🍱",
+  "HK-LOC-STEWARD": "🍽️",
+  "HK-LOC-LINEN": "🛏️",
+  "HK-LOC-LAUNDRY": "👕",
+  "HK-LOC-HK-PANTRY-T1": "🧴",
+  "HK-LOC-HK-PANTRY-T2": "🧴",
+  "HK-LOC-LOCKER": "🔐",
+  "HK-LOC-CANTEEN": "🍛",
+  "HK-LOC-UNIFORM": "👔",
+  "HK-LOC-LOADING": "🚚",
+  "HK-LOC-GARBAGE": "🗑️",
+  "HK-LOC-STAFF-ENT": "🚪",
+  "HK-LOC-STORAGE": "📦",
+  "HK-LOC-RESTAURANT": "🍴",
+  "HK-LOC-BAR": "🍸",
+  "HK-LOC-CAFE": "☕",
+  "HK-LOC-ROOM-SERVICE": "🛎️",
+  "HK-LOC-POOL": "🏊",
+  "HK-LOC-POOL-DECK": "☀️",
+  "HK-LOC-FITNESS": "🏋️",
+  "HK-LOC-SPA": "💆",
+  "HK-LOC-SAUNA": "🧖",
+  "HK-LOC-SALON": "💇",
+  "HK-LOC-KIDS": "🧸",
+  "HK-LOC-MEETING": "📊",
+  "HK-LOC-BALLROOM": "💃",
+  "HK-LOC-EVENT": "🎉",
+  "HK-LOC-PRE-FUNC": "🥂",
+  "HK-LOC-PARKING": "🅿️",
+  "HK-LOC-PORTICO": "🏨",
+  "HK-LOC-DRIVEWAY": "🛣️",
+  "HK-LOC-GARDEN": "🌳",
+  "HK-LOC-TERRACE": "🌿",
+  "HK-LOC-WALKWAY": "🚶",
+  "HK-LOC-ROOFTOP": "🌆",
+  "HK-LOC-T1-STAIR": "🪜",
+  "HK-LOC-T2-STAIR": "🪜",
+  "HK-LOC-WAITING": "⏳",
+  "HK-LOC-GIFT-SHOP": "🎁",
+  "HK-LOC-MINI-MART": "🏪",
+  "HK-LOC-EXEC-LOUNGE": "🥃",
+  "HK-LOC-CLUB-LOUNGE": "🎩",
+  "HK-LOC-REST-WR-F": "🚺",
+  "HK-LOC-REST-WR-M": "🚻",
+  "HK-LOC-SPA-WR-F": "🚺",
+  "HK-LOC-SPA-WR-M": "🚻",
+  "HK-LOC-FIT-WR-F": "🚺",
+  "HK-LOC-FIT-WR-M": "🚻",
+  "HK-LOC-BALL-WR-F": "🚺",
+  "HK-LOC-BALL-WR-M": "🚻",
+  "HK-LOC-TERRACE-REST": "🍽️",
+  "HK-LOC-LOTUS-GARDEN": "🥟",
+  "HK-LOC-RIVERSIDE-GRILL": "🥩",
+  "HK-LOC-SKY-BAR": "🌃",
+  "HK-LOC-POOL-BAR": "🍹",
+  "HK-LOC-LOBBY-LOUNGE": "🫖",
+  "HK-LOC-BAKERY": "🥐",
+  "HK-LOC-INROOM-PICKUP": "🍱",
+  "HK-LOC-TEA-LOUNGE": "🍵",
+  "HK-LOC-POOL-KIDS": "👶",
+  "HK-LOC-JACUZZI": "♨️",
+  "HK-LOC-POOL-TOWEL": "🏖️",
+  "HK-LOC-SPA-RECEPT": "📅",
+  "HK-LOC-YOGA": "🧘",
+  "HK-LOC-GAME-ROOM": "🎮",
+  "HK-LOC-MEET-EMERALD": "💚",
+  "HK-LOC-MEET-SAPPHIRE": "💙",
+  "HK-LOC-MEET-RUBY": "❤️",
+  "HK-LOC-BOARDROOM": "🤝",
+  "HK-LOC-BRIDAL": "💒",
+  "HK-LOC-VALET": "🚗",
+  "HK-LOC-TAXI": "🚕",
+  "HK-LOC-SHUTTLE": "🚌",
+  "HK-LOC-EV-CHARGE": "🔌",
+  "HK-LOC-SMOKING": "🚬",
+  "HK-LOC-FIRST-AID": "⛑️",
+  "HK-LOC-PRAYER": "🕌",
+  "HK-LOC-WATER-FEATURE": "⛲",
+};
+
+const CORRIDOR_EMOJI = "🚶";
+const LIFT_EMOJI = "🛗";
+
+export function inferHotelLocationEmoji(code: string): string {
+  const c = code.trim().toUpperCase();
+  if (!c) return "📍";
+  if (c in HOTEL_LOCATION_EMOJI_BY_CODE) return HOTEL_LOCATION_EMOJI_BY_CODE[c]!;
+
+  if (/^HK-LOC-T\d+-F\d+-CORR$/.test(c) || c.includes("-CORR")) return CORRIDOR_EMOJI;
+  if (/^HK-LOC-T\d+-LIFT-[A-Z0-9]+$/.test(c) || c.includes("-LIFT-")) return LIFT_EMOJI;
+  if (c.includes("-PANTRY-")) return "🧴";
+
+  if (c.includes("WR-") || c.endsWith("-WR-F") || c.endsWith("-WR-M")) {
+    if (c.endsWith("-F") || c.includes("-WR-F")) return "🚺";
+    if (c.endsWith("-M") || c.includes("-WR-M")) return "🚻";
+    return "🚻";
+  }
+
+  return "📍";
+}

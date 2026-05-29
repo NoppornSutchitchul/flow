@@ -1,0 +1,849 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand neutrals — warm cream paper feel from the prototype */
+  --color-paper: #f7f3ec;
+  --color-paper-2: #f1ece2;
+  --color-ink: #1f1d1a;
+  --color-ink-soft: #54514b;
+  --color-ink-muted: #8b867d;
+  --color-line: #e7e2d6;
+  /* Saved reports — แชร์ tab (cooler tint vs warm รายงานของฉัน) */
+  --color-share-line: #c8d8ea;
+  --color-share-surface: #f2f6fb;
+
+  /* Status palette (pills) */
+  --color-pending-bg: #f2c2b8;
+  --color-pending-fg: #7a1a0c;
+  --color-progress-bg: #e8e4dc;
+  --color-progress-fg: #2b2926;
+  --color-assigned-bg: #d8d1ff;
+  --color-assigned-fg: #2f1e7a;
+  --color-delivered-bg: #b9e0c2;
+  --color-delivered-fg: #1f4d2c;
+  --color-paused-bg: #d8d4cb;
+  --color-paused-fg: #2b2926;
+  --color-cancelled-bg: #b04a3a;
+  --color-cancelled-fg: #fff;
+  --color-dnd-bg: #c98aa1;
+  --color-dnd-fg: #3a0f22;
+
+  /* Stock pills */
+  --color-stock-low-bg: #f1c87a;
+  --color-stock-low-fg: #4a2d05;
+  --color-stock-ok-bg: #93d3a2;
+  --color-stock-ok-fg: #173a20;
+  --color-stock-out-bg: #b04a3a;
+  --color-stock-out-fg: #fff;
+  --color-stock-service-bg: #d2caf0;
+  --color-stock-service-fg: #2c1d6a;
+
+  /* Time-alert row tints */
+  --color-row-breach: #f4d8d2;
+  --color-row-warning: #faecc5;
+  --color-row-dnd: #efd4df;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Sukhumvit Set",
+    "IBM Plex Sans Thai", "Noto Sans Thai", "Apple SD Gothic Neo", sans-serif;
+
+  /* BRS report semantics (OKLCH) — maps to warm palette in charts via fallbacks */
+  --color-success: oklch(0.62 0.14 155);
+  --color-warning: oklch(0.75 0.14 75);
+  --color-danger: oklch(0.58 0.2 25);
+  --color-accent: oklch(0.55 0.18 275);
+  --color-surface: var(--color-paper);
+  --color-surface-elevated: #ffffff;
+  --color-border-report: var(--color-line);
+  --text-kpi: 2.25rem;
+}
+
+@layer base {
+  a[href],
+  button:not(:disabled),
+  input[type="button"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  select:not(:disabled),
+  summary,
+  label:has(input[type="checkbox"]:not(:disabled)),
+  label:has(input[type="radio"]:not(:disabled)) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input[type="button"]:disabled,
+  input[type="submit"]:disabled,
+  input[type="reset"]:disabled,
+  select:disabled {
+    cursor: not-allowed;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle separators inside cards */
+.divide-row > * + * {
+  border-top: 1px solid var(--color-line);
+}
+
+/* รายงานของฉัน — แท็บ «แชร์»: เส้นขอบวิ่งรอบ (ก้อนไฟโทน share-line) พื้นขาวเหมือนเดิม */
+@property --share-ring-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.share-panel-ring {
+  position: relative;
+  isolation: isolate;
+  border-radius: 0.75rem;
+  padding: 5px;
+  overflow: hidden;
+  box-shadow:
+    0 4px 14px rgb(31 29 26 / 0.1),
+    0 12px 32px rgb(72 120 168 / 0.14);
+}
+
+.share-panel-ring::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220%;
+  height: 220%;
+  translate: -50% -50%;
+  filter: blur(0.35px);
+  background: conic-gradient(
+    from var(--share-ring-angle),
+    /* ลูกไฟ 1 */
+    transparent 0deg 30deg,
+    var(--color-share-line) 32deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 38deg,
+    color-mix(in srgb, var(--color-share-line) 55%, white 45%) 44deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 50deg,
+    var(--color-share-line) 56deg,
+    transparent 58deg 60deg,
+    /* ลูกไฟ 2 */
+    transparent 60deg 90deg,
+    var(--color-share-line) 92deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 98deg,
+    color-mix(in srgb, var(--color-share-line) 55%, white 45%) 104deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 110deg,
+    var(--color-share-line) 116deg,
+    transparent 118deg 120deg,
+    /* ลูกไฟ 3 */
+    transparent 120deg 150deg,
+    var(--color-share-line) 152deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 158deg,
+    color-mix(in srgb, var(--color-share-line) 55%, white 45%) 164deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 170deg,
+    var(--color-share-line) 176deg,
+    transparent 178deg 180deg,
+    /* ลูกไฟ 4 */
+    transparent 180deg 210deg,
+    var(--color-share-line) 212deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 218deg,
+    color-mix(in srgb, var(--color-share-line) 55%, white 45%) 224deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 230deg,
+    var(--color-share-line) 236deg,
+    transparent 238deg 240deg,
+    /* ลูกไฟ 5 */
+    transparent 240deg 270deg,
+    var(--color-share-line) 272deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 278deg,
+    color-mix(in srgb, var(--color-share-line) 55%, white 45%) 284deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 290deg,
+    var(--color-share-line) 296deg,
+    transparent 298deg 300deg,
+    /* ลูกไฟ 6 */
+    transparent 300deg 330deg,
+    var(--color-share-line) 332deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 338deg,
+    color-mix(in srgb, var(--color-share-line) 55%, white 45%) 344deg,
+    color-mix(in srgb, var(--color-share-line) 40%, white 60%) 350deg,
+    var(--color-share-line) 356deg,
+    transparent 358deg 360deg
+  );
+  animation: share-panel-ring-spin 26s linear infinite;
+}
+
+@keyframes share-panel-ring-spin {
+  to {
+    --share-ring-angle: 360deg;
+  }
+}
+
+.share-panel-ring__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  border-radius: calc(0.75rem - 5px);
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .share-panel-ring {
+    padding: 0;
+    border: 2px solid var(--color-share-line);
+  }
+
+  .share-panel-ring::before {
+    display: none;
+  }
+}
+
+.divide-row-animated > li,
+.queue-list-animated > li {
+  transition:
+    transform 0.4s ease,
+    opacity 0.35s ease,
+    margin 0.4s ease;
+  will-change: transform;
+}
+
+.divide-row-animated > li {
+  transition:
+    transform 0.4s ease,
+    opacity 0.35s ease,
+    margin 0.4s ease,
+    padding 0.4s ease;
+  will-change: transform;
+}
+
+/* RUSH row alarm — pulsing red/orange background with a hard red left
+   border. Used on Request table rows and queue cards when priority is
+   "rush" and the request is still active. */
+@keyframes rush-pulse {
+  0%,
+  100% {
+    background-color: rgba(254, 215, 170, 0.55); /* soft amber */
+  }
+  50% {
+    background-color: rgba(220, 38, 38, 0.32); /* warning red */
+  }
+}
+
+.row-rush {
+  animation: rush-pulse 1.4s ease-in-out infinite;
+  box-shadow: inset 4px 0 0 0 #dc2626;
+}
+
+.card-rush {
+  animation: rush-pulse 1.4s ease-in-out infinite;
+  border-color: #dc2626 !important;
+  border-left-width: 4px !important;
+}
+
+/* Closing flash — row/card about to leave the active list (delivered / cancelled). */
+@keyframes row-close-flash-white {
+  0%,
+  100% {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  50% {
+    background-color: rgba(255, 255, 255, 0.96);
+  }
+}
+
+@keyframes row-close-shimmer {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+  50% {
+    box-shadow:
+      inset 0 0 0 1px rgba(31, 29, 26, 0.12),
+      inset 0 0 20px rgba(255, 255, 255, 0.95);
+  }
+}
+
+@keyframes row-close-flash-cancelled {
+  0%,
+  100% {
+    background-color: color-mix(in srgb, var(--color-paper-2) 40%, transparent);
+  }
+  50% {
+    background-color: color-mix(in srgb, var(--color-paper-2) 90%, #fff);
+  }
+}
+
+@keyframes row-close-slide-out {
+  from {
+    max-height: 12rem;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0.96);
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+  }
+}
+
+.row-closing-delivered,
+.row-closing-cancelled,
+.card-closing-delivered,
+.card-closing-cancelled {
+  pointer-events: none;
+  position: relative;
+  z-index: 5;
+  overflow: hidden;
+  transform-origin: top center;
+}
+
+/* Strike through every text value while the row flashes / collapses away. */
+.row-closing-delivered > a,
+.row-closing-delivered > div,
+.row-closing-cancelled > a,
+.row-closing-cancelled > div {
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  text-decoration-thickness: 1.5px;
+}
+
+.row-closing-delivered > a *:not(svg):not(path),
+.row-closing-delivered > div *:not(svg):not(path),
+.row-closing-cancelled > a *:not(svg):not(path),
+.row-closing-cancelled > div *:not(svg):not(path) {
+  text-decoration: line-through;
+  text-decoration-color: inherit;
+  text-decoration-thickness: inherit;
+}
+
+.row-closing-delivered:not(.row-closing-collapse),
+.row-closing-cancelled:not(.row-closing-collapse),
+.card-closing-delivered:not(.card-closing-collapse),
+.card-closing-cancelled:not(.card-closing-collapse) {
+  animation: row-close-shimmer 0.5s ease-in-out 6;
+}
+
+.row-closing-delivered:not(.row-closing-collapse)::before,
+.row-closing-cancelled:not(.row-closing-collapse)::before,
+.card-closing-delivered:not(.card-closing-collapse)::before,
+.card-closing-cancelled:not(.card-closing-collapse)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.row-closing-delivered:not(.row-closing-collapse)::before,
+.card-closing-delivered:not(.card-closing-collapse)::before {
+  animation: row-close-flash-white 0.5s ease-in-out 6;
+}
+
+.row-closing-cancelled:not(.row-closing-collapse)::before,
+.card-closing-cancelled:not(.card-closing-collapse)::before {
+  animation: row-close-flash-cancelled 0.5s ease-in-out 6;
+}
+
+.row-closing-collapse {
+  animation: row-close-slide-out 0.4s ease forwards;
+  overflow: hidden;
+}
+
+.card-closing-collapse {
+  animation: row-close-card-out 0.4s ease forwards;
+  overflow: hidden;
+}
+
+.row-closing-collapse::before,
+.card-closing-collapse::before {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes row-close-card-out {
+  from {
+    max-height: 28rem;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0.96);
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.row-closing-delivered::after,
+.row-closing-cancelled::after,
+.card-closing-delivered::after,
+.card-closing-cancelled::after {
+  display: none;
+}
+
+/* Match table container rounded-xl (0.75rem) on the bottom edge. */
+.divide-row > li:last-child.row-closing-delivered,
+.divide-row > li:last-child.row-closing-cancelled,
+.divide-row > li:last-child.row-closing-collapse {
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+.divide-row > li:last-child.row-closing-delivered::before,
+.divide-row > li:last-child.row-closing-cancelled::before,
+.divide-row > li:last-child.row-closing-collapse::before {
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+.rush-badge {
+  background: #dc2626;
+  color: #fff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 4px;
+  font-size: 10px;
+  padding: 2px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.request-detail-actions .rush-btn,
+.request-detail-actions .cancel-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.rush-btn {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+.rush-btn:hover:not(:disabled) {
+  background: #b91c1c;
+  border-color: #b91c1c;
+}
+.rush-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  background: #fff;
+  color: var(--color-ink);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 28%, var(--color-line));
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgb(31 29 26 / 0.06);
+}
+.cancel-btn:hover:not(:disabled) {
+  background: var(--color-paper-2);
+  border-color: color-mix(in srgb, var(--color-ink) 45%, var(--color-line));
+}
+.cancel-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.request-detail-actions .cancel-btn {
+  color: #dc2626;
+  border-color: #dc2626;
+  box-shadow: none;
+}
+.request-detail-actions .cancel-btn:hover:not(:disabled) {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #b91c1c;
+}
+
+/* Time-threshold row blinks: yellow past the first third of the window,
+   red past two thirds; overdue reuses the red animation. */
+@keyframes time-warn-pulse {
+  0%,
+  100% {
+    background-color: rgba(250, 204, 21, 0.16);
+  }
+  50% {
+    background-color: rgba(250, 204, 21, 0.4);
+  }
+}
+
+.row-time-warn {
+  animation: time-warn-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes time-danger-pulse {
+  0%,
+  100% {
+    background-color: rgba(220, 38, 38, 0.14);
+  }
+  50% {
+    background-color: rgba(220, 38, 38, 0.34);
+  }
+}
+
+.row-time-danger {
+  animation: time-danger-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes staff-crisis-pulse {
+  0%,
+  100% {
+    background-color: rgba(220, 38, 38, 0.62);
+    box-shadow: inset 0 0 0 2px rgba(185, 28, 28, 0.95);
+  }
+  50% {
+    background-color: rgba(254, 202, 202, 0.98);
+    box-shadow: inset 0 0 0 3px rgba(220, 38, 38, 1);
+  }
+}
+
+.row-staff-crisis {
+  animation: staff-crisis-pulse 0.5s ease-in-out infinite;
+}
+
+.status-pill-staff-crisis {
+  animation: dnd-pill-blink 0.38s ease-in-out infinite;
+}
+
+@keyframes dashboard-staff-crisis-badge {
+  0%,
+  100% {
+    background-color: rgb(185, 28, 28);
+    color: white;
+    box-shadow: 0 0 0 1px rgba(127, 29, 29, 0.5);
+  }
+  50% {
+    background-color: rgb(254, 226, 226);
+    color: rgb(127, 29, 29);
+    box-shadow: 0 0 0 2px rgb(220, 38, 38);
+  }
+}
+
+.dashboard-staff-crisis-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  font-weight: 600;
+  animation: dashboard-staff-crisis-badge 0.5s ease-in-out infinite;
+}
+
+.staff-crisis-banner {
+  animation: staff-crisis-pulse 0.5s ease-in-out infinite;
+}
+
+/* DND status pill — rapid blink so staff notice without blocking read text */
+@keyframes dnd-pill-blink {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.48;
+    filter: brightness(1.12);
+  }
+}
+
+.status-pill-dnd-blink {
+  animation: dnd-pill-blink 0.38s ease-in-out infinite;
+}
+
+@keyframes countdown-overdue-pulse {
+  0%,
+  100% {
+    background-color: rgba(153, 27, 27, 0.34);
+  }
+  50% {
+    background-color: rgba(127, 29, 29, 0.58);
+  }
+}
+
+.countdown-fill-overdue {
+  animation: countdown-overdue-pulse 1.2s ease-in-out infinite;
+}
+
+/* My Queue (field ops) — soft dark-red border pulse when overdue */
+@keyframes card-overdue-border {
+  0%,
+  100% {
+    border-color: #b91c1c;
+    box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.16);
+  }
+  50% {
+    border-color: #991b1b;
+    box-shadow: 0 0 0 3px rgba(127, 29, 29, 0.26);
+  }
+}
+
+.card-overdue-soft {
+  animation: card-overdue-border 1.2s ease-in-out infinite;
+}
+
+/* Dashboard stock alert — pulsing border glow when low/out items need attention */
+@keyframes stock-alert-border-glow {
+  0%,
+  100% {
+    border-color: color-mix(in srgb, var(--color-stock-out-bg) 40%, var(--color-line));
+    box-shadow:
+      0 0 0 1px rgba(176, 74, 58, 0.18),
+      0 0 6px rgba(241, 200, 122, 0.12);
+  }
+  50% {
+    border-color: color-mix(in srgb, var(--color-stock-out-bg) 85%, var(--color-stock-low-bg));
+    box-shadow:
+      0 0 0 2px rgba(176, 74, 58, 0.32),
+      0 0 12px rgba(241, 200, 122, 0.42),
+      0 0 20px rgba(176, 74, 58, 0.18);
+  }
+}
+
+.stock-alert-glow {
+  animation: stock-alert-border-glow 1.5s ease-in-out infinite;
+}
+
+/* Dashboard DND banner — urgent thick blinking border + glow */
+@keyframes dnd-banner-urgent {
+  0%,
+  100% {
+    border-color: color-mix(in srgb, var(--color-dnd-bg) 65%, #9f1239);
+    box-shadow:
+      0 0 0 1px rgba(159, 18, 57, 0.22),
+      0 0 10px rgba(190, 24, 93, 0.22);
+  }
+  50% {
+    border-color: #9f1239;
+    box-shadow:
+      0 0 0 4px rgba(190, 24, 93, 0.5),
+      0 0 18px rgba(190, 24, 93, 0.55),
+      0 0 30px rgba(159, 18, 57, 0.35);
+  }
+}
+
+.dnd-banner-urgent {
+  border-width: 3px;
+  animation: dnd-banner-urgent 0.85s ease-in-out infinite;
+}
+
+@keyframes overdue-timer-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.overdue-timer-blink {
+  animation: overdue-timer-pulse 1.2s ease-in-out infinite;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.checklist-panel {
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(31, 29, 26, 0.06),
+    inset 0 0 0 1px rgba(231, 226, 214, 0.9);
+}
+
+.checklist-items-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.checklist-item {
+  border-radius: 0.65rem;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.checklist-item:hover {
+  border-color: color-mix(in srgb, var(--color-assigned-fg) 25%, var(--color-line));
+  box-shadow: 0 1px 4px rgba(31, 29, 26, 0.06);
+}
+
+.checklist-item-checked {
+  border-color: color-mix(in srgb, var(--color-delivered-fg) 35%, var(--color-line));
+  background: color-mix(in srgb, var(--color-delivered-bg) 42%, #fff);
+}
+
+.checklist-progress-track {
+  height: 0.875rem;
+  border-radius: 9999px;
+  background: var(--color-paper-2);
+  box-shadow: inset 0 1px 2px rgba(31, 29, 26, 0.08);
+  overflow: hidden;
+}
+
+.checklist-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease-out;
+}
+
+/* Reports — formal document layout */
+.report-document-header {
+  font-family: var(--font-sans);
+}
+
+.report-document h2 {
+  font-family: var(--font-sans);
+}
+
+.report-kpi {
+  font-family: var(--font-sans);
+}
+
+.report-section + .report-section {
+  margin-top: 0;
+}
+
+.report-table thead th {
+  letter-spacing: 0.04em;
+  height: 2.5rem;
+  max-height: 2.5rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Reports — print / Save as PDF (in-page, keeps Tailwind) */
+@media print {
+  body.report-printing * {
+    visibility: hidden;
+  }
+  body.report-printing .report-print-target,
+  body.report-printing .report-print-target * {
+    visibility: visible;
+  }
+  body.report-printing .report-print-target {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 12mm;
+    background: white;
+  }
+  body.report-printing nav,
+  body.report-printing header:not(.report-print-header),
+  body.report-printing .no-print {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row-rush,
+  .card-rush {
+    animation: none;
+    background-color: rgba(220, 38, 38, 0.18);
+  }
+  .row-time-warn {
+    animation: none;
+    background-color: rgba(250, 204, 21, 0.28);
+  }
+  .row-time-danger {
+    animation: none;
+    background-color: rgba(220, 38, 38, 0.22);
+  }
+  .row-staff-crisis {
+    animation: none;
+    background-color: rgba(220, 38, 38, 0.45);
+    box-shadow: inset 0 0 0 2px rgba(185, 28, 28, 0.9);
+  }
+  .dashboard-staff-crisis-badge,
+  .status-pill-staff-crisis {
+    animation: none;
+  }
+  .staff-crisis-banner {
+    animation: none;
+  }
+  .status-pill-dnd-blink {
+    animation: none;
+    opacity: 1;
+    filter: none;
+  }
+  .countdown-fill-overdue {
+    animation: none;
+    background-color: rgba(127, 29, 29, 0.48);
+  }
+  .card-overdue-soft {
+    animation: none;
+    border-color: #991b1b;
+    box-shadow: 0 0 0 2px rgba(127, 29, 29, 0.22);
+  }
+  .stock-alert-glow {
+    animation: none;
+    border-color: color-mix(in srgb, var(--color-stock-out-bg) 55%, var(--color-line));
+    box-shadow: 0 0 0 2px rgba(176, 74, 58, 0.22);
+  }
+  .dnd-banner-urgent {
+    animation: none;
+    border-color: #9f1239;
+    box-shadow: 0 0 0 2px rgba(190, 24, 93, 0.32);
+  }
+  .overdue-timer-blink {
+    animation: none;
+  }
+  .row-closing-delivered,
+  .row-closing-cancelled,
+  .row-closing-collapse,
+  .card-closing-delivered,
+  .card-closing-cancelled,
+  .card-closing-collapse {
+    animation: none;
+    opacity: 0.55;
+  }
+  .divide-row-animated > li {
+    transition: none;
+  }
+}
