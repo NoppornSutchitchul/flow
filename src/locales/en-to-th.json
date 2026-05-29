@@ -1777,5 +1777,10 @@
   "Date & time": "วัน/เวลา",
   "Pick time": "เลือกเวลา",
   "Hr": "ชม.",
-  "Min": "นาที"
+  "Min": "นาที",
+  "View department demo accounts": "ดูบัญชีตัวอย่างตามแผนก",
+  "Hide department demo accounts": "ซ่อนบัญชีตัวอย่างตามแผนก",
+  "Sample user accounts by department": "บัญชีผู้ใช้ตัวอย่างแยกตามแผนก",
+  "Use these demo credentials for quick sign-in tests.": "ใช้ข้อมูลนี้เพื่อทดสอบการเข้าสู่ระบบอย่างรวดเร็ว",
+  "Click to use this account": "คลิกเพื่อใช้บัญชีนี้"
 }

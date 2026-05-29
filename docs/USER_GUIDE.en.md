@@ -1,13 +1,13 @@
-# Flow User Guide (Demo / Showcase)
+# 🏨 Flow User Guide (Demo / Showcase)
 
 This document explains how to use **Flow** for demo viewers, developers, and testers.  
 Flow is a hotel service-request app for housekeeping, engineering, front office, and managers.
 
-**Other languages:** [ภาษาไทย (Thai)](./USER_GUIDE.md)
+**🌐 Other languages:** [ภาษาไทย (Thai)](./USER_GUIDE.md)
 
 ---
 
-## Access (Production Demo)
+## 🔗 Access (Production Demo)
 
 | Item | URL |
 |------|-----|
@@ -18,7 +18,19 @@ Use **Chrome, Safari, or Edge** on a tablet-sized screen or larger (mobile works
 
 ---
 
-## Sign in
+## 🎬 Demo videos
+
+Watch the overview before reading the full guide:
+
+| # | Title | Video |
+|---|--------|--------|
+| 0.1 | Flow overview — hotel operations demo | [▶️ YouTube](https://youtu.be/HwL8Q-gJp8k) |
+
+Full episode checklist (0.2–11.x): [VIDEO_SERIES.md](./VIDEO_SERIES.md)
+
+---
+
+## 🔐 Sign in
 
 1. Open [http://43.210.162.81/](http://43.210.162.81/)
 2. Enter **Username** and **Password**
@@ -28,10 +40,10 @@ Use **Chrome, Safari, or Edge** on a tablet-sized screen or larger (mobile works
 
 | Role | Username (examples) | Password | Good for demo |
 |------|---------------------|----------|---------------|
-| System admin | `Admin` | `1234` | Time thresholds, admin hub, reports |
-| Front desk | `Nicha` or `Chaiwat` | `1234` | Quick request (+), request list |
-| Housekeeper | `Malee` or `Niran` | `1234` | My Queue, accept → deliver |
-| Maintenance | `Anan` or `Somsak` | `1234` | Engineering queue, repair jobs |
+| 👑 System admin | `Admin` | `1234` | Time thresholds, admin hub, reports |
+| 🛎️ Front desk | `Nicha` or `Chaiwat` | `1234` | Quick request (+), request list |
+| 🧹 Housekeeper | `Malee` or `Niran` | `1234` | My Queue, accept → deliver |
+| 🔧 Maintenance | `Anan` or `Somsak` | `1234` | Engineering queue, repair jobs |
 
 > Usernames are derived from display names — if login fails, try the English first name (e.g. `Admin`, `Nicha`, `Anan`).  
 > Default seed password for staff is **`1234`** (change under Settings in production).
@@ -40,7 +52,7 @@ After sign-in, the header shows your name, role, department, and **Online** stat
 
 ---
 
-## System overview
+## 🌐 System overview
 
 Flow lets you:
 
@@ -53,7 +65,7 @@ Updates are **real-time via WebSocket** — request lists and stats refresh with
 
 ---
 
-## Bottom navigation
+## 🧭 Bottom navigation
 
 Visible items depend on **role and permissions**.
 
@@ -71,7 +83,7 @@ Visible items depend on **role and permissions**.
 
 ---
 
-## 1) Dashboard — supervisors / front desk / managers
+## 1) 📊 Dashboard — supervisors / front desk / managers
 
 **Route:** `/` (home icon)
 
@@ -89,7 +101,7 @@ Visible items depend on **role and permissions**.
 
 ---
 
-## 2) Quick Request — center + button
+## 2) ➕ Quick Request — center + button
 
 **Open from:** bottom **+** or `/?quick=1`
 
@@ -131,7 +143,7 @@ If inventory cannot cover open jobs plus the new lines, items show **out of stoc
 
 ---
 
-## 3) Requests list
+## 3) 📋 Requests list
 
 **Route:** `/requests`
 
@@ -149,7 +161,7 @@ If inventory cannot cover open jobs plus the new lines, items show **out of stoc
 
 ---
 
-## 4) Request detail
+## 4) 📄 Request detail
 
 **Route:** `/requests/{id}`
 
@@ -176,7 +188,7 @@ If inventory cannot cover open jobs plus the new lines, items show **out of stoc
 
 ---
 
-## 5) My Queue — housekeeping / engineering
+## 5) ✅ My Queue — housekeeping / engineering
 
 **Route:** `/queue`
 
@@ -207,7 +219,7 @@ Cards show time remaining against **response thresholds** set by admin (see Sett
 
 ---
 
-## 6) Products and stock
+## 6) 📦 Products and stock
 
 | Screen | Route | Use |
 |--------|-------|-----|
@@ -218,7 +230,7 @@ Creating requests with supplies **reserves stock** from open jobs; stock is cons
 
 ---
 
-## 7) Reports
+## 7) 📈 Reports
 
 **Route:** `/reports`
 
@@ -230,7 +242,7 @@ Good for showing **back-office analytics**, not only request handling.
 
 ---
 
-## 8) Settings
+## 8) ⚙️ Settings
 
 **Route:** `/settings`
 
@@ -258,7 +270,7 @@ Link to **Admin Hub** — catalog, rooms, locations, users.
 
 ---
 
-## 9) Admin Hub
+## 9) 🛠️ Admin Hub
 
 **Route:** `/admin` (`admin_hub` feature or system admin)
 
@@ -272,7 +284,7 @@ Link to **Admin Hub** — catalog, rooms, locations, users.
 
 ---
 
-## 10) Request statuses (reference)
+## 10) 🏷️ Request statuses (reference)
 
 ```
 pending → assigned → in_progress ⇄ paused → delivered
@@ -290,7 +302,7 @@ pending → assigned → in_progress ⇄ paused → delivered
 
 ---
 
-## 11) Behind the scenes (for presentations)
+## 11) ⚡ Behind the scenes (for presentations)
 
 When explaining the demo:
 
@@ -305,7 +317,7 @@ More architecture: [ARCHITECTURE.md](./ARCHITECTURE.md)
 
 ---
 
-## 12) Demo script (5–10 minutes)
+## 12) 🎭 Demo script (5–10 minutes)
 
 ### Scene A — Front desk creates work
 
@@ -335,7 +347,7 @@ More architecture: [ARCHITECTURE.md](./ARCHITECTURE.md)
 
 ---
 
-## 13) Troubleshooting
+## 13) 🔧 Troubleshooting
 
 | Symptom | What to try |
 |---------|-------------|
@@ -348,18 +360,19 @@ More architecture: [ARCHITECTURE.md](./ARCHITECTURE.md)
 
 ---
 
-## 14) Related docs
+## 14) 📚 Related docs
 
 | Doc | Contents |
 |-----|----------|
 | [README.md](../README.md) | Project overview + local quick start |
+| [VIDEO_SERIES.md](./VIDEO_SERIES.md) | Video episode checklist + YouTube links |
 | [DEVELOPMENT.md](./DEVELOPMENT.md) | Local dev setup |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | System architecture |
 | [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) | Folder map |
 
 ---
 
-## Project
+## 📬 Project
 
 - **Demo URL:** [http://43.210.162.81/](http://43.210.162.81/)
 - This project is for **portfolio / system demonstration**, not a commercial product.

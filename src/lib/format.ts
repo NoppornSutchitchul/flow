@@ -492,6 +492,8 @@ export function queueIsPrimaryHome(
   u: Pick<User, "role" | "department" | "permissions">,
 ): boolean {
   if (!canAccessQueue(u)) return false;
+  // When both overview and queue are granted, `/` is Dashboard and `/queue` is My Queue.
+  if (hasAppFeature(u, "overview")) return false;
   return roleHasQueue(u.role) || isHousekeepingQueueUser(u);
 }
 

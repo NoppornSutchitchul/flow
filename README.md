@@ -1,4 +1,4 @@
-# Flow
+# 🏨 Flow
 
 Hotel operations web app: front desk and supervisors create guest requests,
 housekeeping and maintenance fulfil them from a queue, and managers track
@@ -7,16 +7,19 @@ response times, stock, and reports.
 **Stack:** React 19 · Vite · TypeScript · Tailwind v4 · TanStack Query · i18next (TH/EN) ·
 FastAPI · SQLModel · **SQLite (dev)** / **PostgreSQL (production via `DATABASE_URL`)** · WebSockets
 
-## Live demo
+## 🌐 Live demo
 
-| | |
-|---|---|
-| **Web app** | [http://43.210.162.81/](http://43.210.162.81/) |
-| **Demo login** | Username `Admin` · Password `1234` |
 
-**User guides (detailed):** [Thai](docs/USER_GUIDE.md) · [English](docs/USER_GUIDE.en.md) — login, quick request, queue, reports, time thresholds, demo script
+|                       |                                                        |
+| --------------------- | ------------------------------------------------------ |
+| 🎬 **Overview video** | [YouTube — Flow คืออะไร](https://youtu.be/HwL8Q-gJp8k) |
+| 🌐 **Web app**        | [http://43.210.162.81/](http://43.210.162.81/)         |
+| 🔐 **Demo login**     | Username `Admin` · Password `1234`                     |
 
-## Quick start
+
+**📖 User guides (detailed):** [🇹🇭 Thai](docs/USER_GUIDE.md) · [🇬🇧 English](docs/USER_GUIDE.en.md) — login, quick request, queue, reports, time thresholds, demo script · [🎬 Video series](docs/VIDEO_SERIES.md)
+
+## 🚀 Quick start
 
 ```bash
 # 1) Backend (creates SQLite + seed users on first run)
@@ -35,23 +38,27 @@ Or run both: `npm run dev:all`
 To reset all local data, delete `backend/hotelops.db` and restart the backend, or run
 `./backend/scripts/reset_fresh.sh`.
 
-## Documentation
+## 📚 Documentation
 
-| Doc                                                    | Contents                                     |
-| ------------------------------------------------------ | -------------------------------------------- |
+
+| Doc                                                    | Contents                                            |
+| ------------------------------------------------------ | --------------------------------------------------- |
 | [docs/USER_GUIDE.md](docs/USER_GUIDE.md)               | **User guide (TH)** — live demo usage & demo script |
 | [docs/USER_GUIDE.en.md](docs/USER_GUIDE.en.md)         | **User guide (EN)** — same content in English       |
+| [docs/VIDEO_SERIES.md](docs/VIDEO_SERIES.md)           | Video episode checklist + YouTube links             |
 | [docs/DATABASE.md](docs/DATABASE.md)                   | SQLite vs PostgreSQL, `DATABASE_URL`, deploy DB     |
-| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)             | Setup, scripts, locale sync, troubleshooting |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)           | System design, auth, realtime, data flow     |
-| [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) | Folder map and module guide                  |
+| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)             | Setup, scripts, locale sync, troubleshooting        |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)           | System design, auth, realtime, data flow            |
+| [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) | Folder map and module guide                         |
 
-## Features (summary)
+
+## ✨ Features (summary)
 
 ### Roles
 
 Bottom navigation depends on role (admin, manager, supervisors, front desk,
 housekeeper, maintenance). See `src/lib/appFeatures.ts`.
+
 
 | Role                      | Typical nav                                                                  |
 | ------------------------- | ---------------------------------------------------------------------------- |
@@ -60,6 +67,7 @@ housekeeper, maintenance). See `src/lib/appFeatures.ts`.
 | HK Supervisor             | Dashboard · Requests · **+** · Products                                      |
 | Front desk                | Dashboard · **+** · Requests                                                 |
 | Housekeeper / Maintenance | My queue · Requests                                                          |
+
 
 ### Requests
 
@@ -82,7 +90,8 @@ and saved custom reports with export.
 Default UI language is Thai; English is available from the header language menu.
 Copy lives in `src/locales/th.json` and `en.json`.
 
-## API (selected)
+## 🔌 API (selected)
+
 
 | Method    | Path                          | Description                           |
 | --------- | ----------------------------- | ------------------------------------- |
@@ -97,9 +106,10 @@ Copy lives in `src/locales/th.json` and `en.json`.
 | GET       | `/api/reports/...`            | Presets & exports                     |
 | WS        | `/ws`                         | Live updates                          |
 
-Full schema: http://localhost:8000/docs
 
-## Build
+Full schema: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+## 🛠️ Build
 
 ```bash
 npm run build    # tsc + Vite → dist/
