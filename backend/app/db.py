@@ -8,6 +8,19 @@ from sqlalchemy import event
 from sqlmodel import SQLModel, Session, create_engine
 
 DB_PATH = Path(__file__).resolve().parent.parent / "hotelops.db"
+_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+
+
+def _load_dotenv() -> None:
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        return
+    load_dotenv(_REPO_ROOT / ".env")
+    load_dotenv(_REPO_ROOT / ".env.local", override=True)
+
+
+_load_dotenv()
 
 
 def resolve_database_url() -> str:
@@ -43,6 +56,13 @@ def dialect_is_sqlite(eng=engine) -> bool:
     return eng.dialect.name == "sqlite"
 
 
+def _sql_bool_literals(eng=engine) -> tuple[str, str]:
+    """SQLite uses 0/1; PostgreSQL requires FALSE/TRUE in raw SQL."""
+    if dialect_is_sqlite(eng):
+        return "0", "1"
+    return "FALSE", "TRUE"
+
+
 def _sql_user_table(eng=engine) -> str:
     """PostgreSQL reserves USER; quote the table name in raw SQL."""
     return "user" if dialect_is_sqlite(eng) else '"user"'
@@ -59,6 +79,8 @@ def _sqlite_pragmas(dbapi_connection, _connection_record) -> None:
 
 
 def init_db() -> None:
+    from . import models  # noqa: F401 — register tables on metadata before create_all
+
     SQLModel.metadata.create_all(engine)
 
     if dialect_is_sqlite():
@@ -259,11 +281,12 @@ def _backfill_pending_scheduled_auto_assign(eng) -> None:
     """Flag deferred auto-assign rows created before pending_auto_assign existed."""
     from sqlalchemy import text
 
+    false_lit, true_lit = _sql_bool_literals(eng)
     with eng.begin() as conn:
         conn.execute(
             text(
-                "UPDATE request SET pending_auto_assign = 1 "
-                "WHERE pending_auto_assign = 0 "
+                f"UPDATE request SET pending_auto_assign = {true_lit} "
+                f"WHERE pending_auto_assign = {false_lit} "
                 "AND status = 'pending' "
                 "AND assignee_id IS NULL "
                 "AND schedule_mode IS NOT NULL "

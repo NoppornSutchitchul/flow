@@ -98,11 +98,16 @@ For a **new** Postgres database, you usually only need steps above (empty DB + s
 
 To **copy** data from an existing `hotelops.db`:
 
-1. Export SQLite (e.g. with `sqlite3` `.dump` or a one-off script)
-2. Import into Postgres (adjust types / `"user"` table quoting)
-3. Or re-seed Postgres and accept demo data only
+```bash
+cd backend
+# .env must point at PostgreSQL (DATABASE_URL)
+./.venv/bin/python scripts/migrate_sqlite_to_postgres.py --sqlite /path/to/hotelops.db
+```
 
-For portfolio/demo, a **fresh seed on Postgres** is usually enough.
+The script truncates Postgres tables, copies rows in FK order, and resets id sequences.
+Legacy tables not in current models (e.g. `staffovertimelog`) are skipped.
+
+For portfolio/demo, a **fresh seed on Postgres** is also fine if you do not need old SQLite data.
 
 ---
 

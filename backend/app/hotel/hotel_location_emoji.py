@@ -144,13 +144,15 @@ def backfill_hotel_location_icon_emojis(engine) -> None:
     from sqlalchemy import text
     from sqlmodel import Session, select
 
+    from ..db import dialect_is_sqlite
     from ..models import HotelLocation
 
-    with engine.begin() as conn:
-        rows = conn.execute(text("PRAGMA table_info(hotellocation)")).fetchall()
-        colnames = {r[1] for r in rows} if rows else set()
-        if colnames and "icon_emoji" not in colnames:
-            conn.execute(text("ALTER TABLE hotellocation ADD COLUMN icon_emoji VARCHAR"))
+    if dialect_is_sqlite(engine):
+        with engine.begin() as conn:
+            rows = conn.execute(text("PRAGMA table_info(hotellocation)")).fetchall()
+            colnames = {r[1] for r in rows} if rows else set()
+            if colnames and "icon_emoji" not in colnames:
+                conn.execute(text("ALTER TABLE hotellocation ADD COLUMN icon_emoji VARCHAR"))
 
     with Session(engine) as s:
         for row in s.exec(select(HotelLocation)).all():
